@@ -1,0 +1,67 @@
+深圳市易信科技股份有限公司
+
+
+ time
+ machineFrom
+ companyName
+ machineType
+ seriesNumber
+ machineNumber
+ machineStatus
+ oldsite
+ newsite
+ idc
+ cabinet
+ rack
+ IP
+ machineStandard
+ toldBusinessDept
+ editorName
+ machineInfo
+ notes
+
+
+
+ $sql="select id,record_type as 'recordType',
+              record_date as 'recordTime',
+              operation_date as 'operationTime',
+              device_from as 'machineFrom' ,
+              company_id as 'companyName',
+              device_name as 'machineName' ,
+              device_config as 'machineInfo' ,
+              device_sn as 'seriesNumber' ,
+              device_standard as 'machineStandard' ,
+              device_count as 'machineCount' ,
+              told_business_dept as 'toldBusinessDept' ,
+              editor_id as 'editor_id',
+              notes as 'notes'
+              from esin_record";
+        return Users::query($sql);
+
+
+
+
+
+         	esin_adjust   修改
+        	esin_cabinet  机柜
+        	esin_company  公司
+        	esin_idc      机房
+        	esin_log 	  日志
+        	esin_machine  机器
+        	esin_rack     机架
+        	esin_record   记录
+        	esin_stock 	  仓库
+        	esin_users 	  用户
+
+
+        	modelnum
+        	count
+        	company
+        	usedevice
+        	notes
+
+        	length
+        	useaddr
+
+
+

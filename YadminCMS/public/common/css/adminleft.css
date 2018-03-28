@@ -1,0 +1,62 @@
+.adminleft {
+    margin-top: 50px;
+}
+.adminleft > .panel-group{
+    margin-top: 0px;
+
+}
+.adminleft > .panel-group > .panel{
+    border-left: 0px;
+    border-right: 0px;
+    margin-top: 0px;
+    background-color:#f2f2f2;
+
+}
+.adminleft  > .panel-group >  .adminleftmenu{
+    height:82%;
+    overflow-y:auto;
+}
+.adminleft > .panel-group > .panel > .panel-heading:hover{
+    background-color: #fafafa;
+}
+.adminleft > .panel-group > .panel > .panel-heading{
+    border-top: 1px solid #CCC;
+    height: 35px;
+    font-size: 18px;
+}
+.adminleft > .panel-group > .panel > .panel-heading > .panel-title{
+
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 10%;
+    padding-right: 0;
+    font-size: 15px;
+
+}
+.adminleft > .panel-group > .panel > .panel-collapse > .panel-body {
+    padding: 0px;
+}
+.adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul{
+    margin: 0px;
+}
+.adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul > li{
+    padding-left: 25%;
+}
+.adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul > li > a{
+     color: #616161;
+     border-top: 0px;
+}
+.adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul > li > a:hover{
+     color: #a6a6a6;
+}
+.adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul > li.list-group-item.active, .adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul > li.list-group-item.active:hover, .adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul > li.list-group-item.active:focus {
+    color: #fff;
+    background-color: #fafafa;
+    border-color: #fafafa;
+    border: 0px;
+
+}
+.adminleft > .panel-group > .panel > .panel-collapse > .panel-body > ul > li.list-group-item{
+    margin-bottom: 0px;
+}
+

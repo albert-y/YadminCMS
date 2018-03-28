@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>管理员后台管理</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="{$Think.config.app_public_images}/logo.ico" rel="shortcut icon" />
+    <link href="{$Think.config.app_public_css}/bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="{$Think.config.app_public_js}/jquery-2.1.0.js"></script>
+    <script src="{$Think.config.app_public_js}/bootstrap.js"></script>
+</head>
+<body style="background-color: #23262E">
+<div class="row" style="width:100%;">
+    <div class="col-xs-5  " style="color: #ffffff;top: 40px;left: 50px;">
+        <!--<img src="{$Think.config.app_public_images}/logo3.png">-->
+        <p style="font-size:xx-large">管理员管理中心<small style="margin-left: 10px;color: lightsalmon">欢迎登录</small></p>
+        <p><small>Administrator Manage Center</small></p>
+    </div>
+</div>
+<div class="row" style="width: 100%">
+    <div class="col-xs-12" style="margin-top:8%;">
+
+        <div class="row">
+            <div class="col-xs-5 col-xs-offset-4" style="color:#FFFFFF;padding: 30px 60px;top: 10px;">
+
+                <form action="{:Url('Login/login')}" method="post">
+                    <div class="form-group">
+
+                        <label for="username">Username</label>
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <input type="text" class="form-control" id="username" placeholder="username" name="username">
+                            </div>
+                            <div class="col-xs-1 hint">
+                                <!--<img src="{$Think.config.app_public_images}/true.png" width="30px" height="30px">-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword">Password</label>
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <input type="password" class="form-control" name="password" id="exampleInputPassword" placeholder="Password">
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <button type="submit" class="btn btn-primary form-control">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12">{$errormsg}</div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="width: 100%;text-align: center;color:#FFF;margin-top: 100px">
+    <p class="text-center"  style="font-size: 10px;">Copyright © 2004-<?php echo date('Y',time());?> All Rights Reserved. | yadmin.org 版权所有</p>
+    <p class="text-center" style="font-size: 10px;">深圳研易智能科技有限公司  ｜ 粤B1.B2-20051020； 湘B1-20130075｜ 粤公网安备 44030502000654号</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.adminmenu{
+    color: #FFF;
+}
+.adminmenu > .navbar-default .navbar-nav > li > a{
+    color: #FFF;
+}
+.adminmenu > .navbar > .col-xs-12 >.col-xs-2{
+    width: 182px;
+}
+.adminmenu > .navbar > .col-xs-12 >.col-xs-10 >.tag >.navbar-left{
+    background-color: #18BC9C;
+    border: 0px;
+    height: 49px;
+    font-size: 12px;
+}
+.adminmenu > .navbar > .col-xs-12 >.col-xs-10 >.tag >.navbar-left > li:hover{
+    background-color: #18BC9C;
+}
+.adminmenu > .navbar > .col-xs-12 >.col-xs-10 >.tag >.navbar-right >li:hover{
+    background-color: #18BC9C;
+}
+.adminmenu > .navbar > .col-xs-12 >.col-xs-2 > .navbar-header > a:hover{
+    color: #18BC9C;
+}
+.adminmenu > .navbar > .col-xs-12 >.col-xs-2 > .navbar-header > a{
+    color: #FFF;
+}

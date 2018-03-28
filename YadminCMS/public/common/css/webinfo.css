@@ -1,0 +1,16 @@
+.webinfo > .panel > .panel-body >ul {
+    display: block;
+}
+.webinfo > .panel > .panel-body > ul > li > em.title{
+    font-weight: bold;
+    text-align: right;
+    float: left;
+    width: 120px;
+    font-style: normal;
+}
+.webinfo > .panel > .panel-body > ul > li > span{
+    margin-left: 10px;
+}
+.webinfo > .panel > .panel-body > ul > li > span > a{
+    color: #18BC9C;
+}

@@ -1,0 +1,23 @@
+
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#info" data-toggle="tab">网站信息</a></li>
+        <li><a href="#seo" data-toggle="tab">SEO设置</a></li>
+        <li><a href="#register" data-toggle="tab">用户注册设置</a></li>
+        <li><a href="#cdn" data-toggle="tab">CDN设置</a></li>
+
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active " id="info">
+            1{//include file="Site:siteinfo"}
+        </div>
+        <div class="tab-pane fade" id="seo">
+            2{//include file="Site:seoset"}
+        </div>
+        <div class="tab-pane fade in" id="register">
+            3{//include file="Site:registerset"}
+        </div>
+        <div class="tab-pane fade in" id="cdn">
+            4{//include file="Site:cdnset"}
+        </div>
+    </div>

@@ -1,0 +1,28 @@
+body{padding: 0px 0px 120px 0px;}
+*{
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+.breadcrumb-item{
+    margin: 0px 100px 0 120px;
+    border: 1px solid #DFDFDF;
+    border-bottom: 0px;
+}
+.border{
+    border: 1px solid #DFDFDF;
+    /*border-top: 0px;*/
+    margin: 0px 100px 0 120px;
+    padding: 15px;
+}
+.show-content{
+    border: 0px solid #DFDFDF;
+    margin: 0px 100px 0 120px;
+    /*padding-top:10px;*/
+}
+.table{font-size: 12px;}
+
+.pagination{font-size: 10px;}
+.navbar-inverse{
+    border: 0px;
+}
