@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"/}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content class="row">
+
+    <div class="row">
+        <form class="form-horizontal" role="form" id="modelform">
+            <div class="row border">
+                <ol class="breadcrumb">
+                    <li>首頁</li>
+                    <li>仓库管理</li>
+                    <li>添加库存类型</li>
+                </ol>
+                <div class="form-group">
+                    <label for="stocktype" class="col-xs-1 control-label">库存类型</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="line" id="stocktype">
+                            <option value="0">未选择</option>
+                        </select>
+                    </div>
+                    <label for="type" class="col-xs-1 control-label">选择类型</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="type" id="type">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-1 control-label"><span class="required">*</span>型号</label>
+                    <div class="col-xs-5">
+                        <input type="text" class="form-control" name="modelnum">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-1 col-xs-offset-1">
+                            <!--添加成功消息提示-->
+                        <span class="hint"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-xs-offset-1">
+                        <button type="button" class="btn btn-sm btn-primary " id="addbtn">确认添加</button>
+                        <a href="{:URL('GetUrl/addStock')}" type="button" class="btn btn-sm btn-default " >返回库存登记</a>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</content>
+<footer>
+    {include file="Common:footer"/}
+</footer>
+</body>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "{:Url('Stock/getStockType')}",
+            data: '',
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                var item;
+                $.each(data, function (i, result) {
+                    item = "<option value='" + result['id'] + "'>" + result['typename'] + "</option>";
+                    $('#stocktype').append(item);
+                });
+            }
+        });
+    });
+    $('#stocktype').change(function () {
+        var data = {typeid: $(this).val()};
+        var appendaddr="#type";
+        getDataAjax(data,appendaddr);
+    });
+    function getDataAjax(data,appendaddr) {
+        $.ajax({
+            url: "{:Url('Stock/getModelNum')}",
+            data: data,
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+
+                $(appendaddr).empty().append("<option value='0'>未选择</option>");
+                var item;
+                $.each(data, function (i, result) {
+                    item = "<option value='" + result['id'] + "'>" + result['typename'] + "</option>";
+                    $(appendaddr).append(item);
+                });
+            }
+        });
+    }
+</script>
+<script>
+    function FormValidator(obj) {
+        $(obj).bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                type: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择类型'
+                        }
+                    }
+                },
+                modelnum: {
+                    validators: {
+                        notEmpty: {
+                            message: '型号不能为空'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    $('#addbtn').click(function () {
+        var obj="#modelform";
+        FormValidator(obj);
+        $(obj).bootstrapValidator('validate');
+        $bv = $(obj).data("bootstrapValidator").isValid();
+        //            alert($bv);
+        if ($bv) {
+            var data = $(obj).serialize();
+            var url="{:Url('Stock/addStockType')}";
+
+            addStockAjax(url,data);
+
+        } else {
+            alert('标注*为必填选项，提交前请填写完整');
+        }
+
+    });
+
+    function addStockAjax(url,data) {
+        $.ajax({
+            url:url,
+            data: data,
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+
+                if(data['stauts']=0){
+                    $('.hint').empty().append(data['message']).css('color', 'red');
+                }else {
+                    $('.hint').empty().append(data['message']).css('color', 'green');
+                }
+            }
+        });
+    }
+</script>
+</html>

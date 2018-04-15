@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<style>
+    a {color: #23262E;}
+    .tab-content a:hover{color: orangered;text-decoration: none}
+</style>
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+
+    <div class="row data-show">
+        <div class="row show-content">
+
+                <ol class="row breadcrumb">
+                    <li>首頁</li>
+                    <li>技术分享</li>
+                    <li>文章分享</li>
+                </ol>
+
+
+
+                <div class="row" >
+                    <div class="input-group col-xs-2">
+                        <input type="text" class="form-control" placeholder="搜索">
+                        <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <ul style="float: right;">
+                        <li class="active" style="display: inline;"><span class="glyphicon  glyphicon-cloud-upload" style="color:#4cb0f9;"></span><a href="{:URL('Share/uploadFile')}" target="_blank">上传资料</a></li>&nbsp;
+                        <li class="active" style="display: inline;"><span class="glyphicon  glyphicon-edit" style="color: #50D4FD;"></span><a href="{:URL('GetUrl/addArticleShare')}" target="_blank">写文档</a></li>
+                    </ul>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="{:URL('Share/getServerArticleList')}">服务器</a></li>
+                        <li><a href="{:URL('Share/getNetworkArticleList')}" >网络</a></li>
+                        <li ><a href="{:URL('getOtherArticleList')}">其他</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="con1" class="tab-pane active" style="padding-top: 20px">
+                            <!--<blockquote>-->
+                            <!--<div class="row"><h4>Ubuntu查看资源使用命令</h4><small>发表时间：2018-01-24 13:48:45 作者：袁剑秋</small></div>-->
+                            <!--<div class="row" style="margin-top:10px;word-break:break-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-indent: 2em;"><small>Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令Ubuntu查看资源使用命令</small></div>-->
+                            <!--<div class="row"></div>-->
+                            <!--</blockquote>-->
+                            {volist name='server' id='vo'}
+                            <blockquote>
+                                <div class="row"><h4><b><a href="{:URL('Share/articlePage',['id'=>$vo.id])}" >{$vo.title}</a></b></h4></div>
+                                <div class="row" style="margin-top:10px;" >
+                                    <p style="font-size: small;color: #9d9d9d;">
+                                        <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-thumbs-up"></span>28赞</a>&nbsp;&nbsp;&nbsp;
+                                        <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-eye-open"></span>浏览61次</a>&nbsp;&nbsp;&nbsp;
+                                        <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-comment"></span>1条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        发表时间：{$vo.operatetime} &nbsp;&nbsp;&nbsp;&nbsp;作者：<a style="color: #9d9d9d">{$vo.operater}</a>
+                                    </p>
+                                </div>
+                                <div class="row" style="margin-top:10px;">
+                                    <span style="height: 50px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$vo.content}</span>
+                                </div>
+                                <div class="row" style="margin-top:10px;">
+                                    <span class="label label-default">{$vo.classify}</span>
+                                    <span class="label label-primary">windows</span>
+                                    <span class="label label-success">Linux</span>
+                                </div>
+                            </blockquote>
+                            {/volist}
+
+                            <div class="row" style="text-align: center">
+                                {$server->render()}
+                            </div>
+                            <div class="row" style="text-align: center">共有{$count}条</div>
+                        </div>
+                        <div id="con2" class="tab-pane">
+
+                        </div>
+                        <div id="con3" class="tab-pane">
+
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+<script src="{$Think.config.app_public_js}/jquery-ias.min.js"></script>
+<script>
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "{:Url('Share/getArticleList')}",
+    //        data:{},
+    //        dataType: 'JSON',
+    //        success: function (data) {
+    ////            var item="<blockquote><div class='row'><h4>"+data['title']+"</h4><small>发表时间："+data['operatetime']+" 作者："+data['operater']+"</small></div><div class='row' style='margin-top:10px;word-break:break-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-indent: 2em;'><small>"+data['content']+"</small></div><div class='row'></div></blockquote>"
+    //            //var item="<div class='row'>"+data['title']+"</div><div class='row'>"+data['content']+"</div>";
+    //            $.each(data,function(key,data){
+    //                var item="<blockquote class='con1'><div class='row'><h4>"+data['title']+"</h4><small>发表时间："+data['operatetime']+" 作者："+data['operater']+"</small></div><div class='row' style='margin-top:10px;word-break:break-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-indent: 2em;'><small>"+data['content']+"</small></div><div class='row'></div></blockquote>"
+    //
+    //                $("#con1").append(item);
+    //            });
+    ////            if(data['classify']="服务器"){
+    ////
+    ////            }else if(data['classify']="网络"){
+    ////
+    ////            }else{
+    ////
+    ////            }
+    //
+    //
+    //        },
+    //        error: function () {
+    //            alert('编辑失败');
+    //        },
+    //        complete: function () {
+    //        }
+    //
+    //    });
+    //
+    //
+    //    var ias=$.ias({
+    //       container:'#con1',
+    //       item:'.con1',
+    //       pageination:'#pagination',
+    //       next:'.next'
+    //    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
++

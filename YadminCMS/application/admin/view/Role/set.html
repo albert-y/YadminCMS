@@ -1,0 +1,89 @@
+<div class="admin_auth_order" style="margin-top: 20px; margin-left:10px">
+    <ul class="first-order">
+        {volist name="parentlist" id='p_list'}
+            <li class="authname" value="">
+                <i class="fa fa-caret-right"></i>&nbsp;
+                <input class="" type="checkbox" value="{$p_list['auth_id']}">
+                {$p_list['auth_name']}
+                <ul style="padding-left: 20px;" class="hide">
+
+                </ul>
+            </li>
+        {/volist}
+    </ul>
+</div>
+
+<script>
+    $('.authname i').click(function (event) {
+
+        event.stopPropagation();//阻止事件冒泡，防止点击子元素触发父级元素事件
+
+        var pid={pid:$(this).parent().children('input').val()};//获取当前节点的父级id
+
+//        alert($(this).parent().children('input').val());
+
+        //判断当前 li 标签中的i的标签中是否是右三角符号 修改三角符号的显示样式 模式是右显示 点击显示向下显示 再次点击恢复向右显示
+       if($(this).parent().children('i').hasClass('fa-caret-right')) {
+
+           //ajax获取当前父类下所有直接子元素并添加
+           var data =getChildrenList(pid);
+           $(this).parent().children('ul').empty();
+           var item_ul="<ul style='padding-left: 20px;' class='hide'></ul>";
+           $.each(data,function(i,result){
+
+               var item_li="<li class='authname'>&nbsp; |——"+
+                       "<i class='fa fa-caret-right'></i>" +
+                       "<input  type='checkbox' value='"+result['auth_id']+"'>"+result['auth_name']+
+                       "</li>";
+               $(this).parent().children('ul').append(item_li);
+
+           });
+           //判断当前 li 标签字标签 ul 是否是隐藏状态，默认是隐藏状态 修改隐藏显示状态 点击显示 再次点击隐藏
+           if($(this).parent().children('ul').hasClass('hide')){
+               $(this).parent().children('ul').removeClass('hide').addClass('show');
+           }else {
+               $(this).parent().children('ul').removeClass('show').addClass('hide');
+           }
+
+           //修改三角符号由向右改为向下
+           $(this).parent().children('i').removeClass('fa-caret-right').addClass('fa-caret-down');
+
+           //判断 li 标签的直接子标签 input 是否有checked属性 有就添加 checked属性值为checked
+           if($(this).parent().children('input').is(":checked")){
+              $(this).parent().find('input').prop('checked','checked');
+           }
+       }else { //关闭状态的各标签属性
+
+           $(this).parent().children('i').removeClass('fa-caret-down').addClass('fa-caret-right');
+
+           if($(this).parent().children('ul').hasClass('hide')){
+               $(this).parent().children('ul').removeClass('show').addClass('hide');
+           }else {
+               $(this).parent().children('ul').removeClass('show').addClass('hide');
+           }
+       }
+
+    });
+
+
+    function getChildrenList(pid) {
+
+        var succdata=null;
+        $.ajax({
+            async : false,
+            url:"{:Url('Auth/getChildrenList')}",
+            data:pid,
+            type:"POST",
+            dataType:"JSON",
+            success:function (data) {
+                return succdata=data;
+            },
+            error:function () {
+                alert('(⊙o⊙)…出错了，请联系管理员处理...');
+            }
+        });
+        return succdata;
+    }
+
+
+</script>

@@ -1,10 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="" style="margin-top: 20px">
 
-</body>
-</html>
+    <table class="table table-bordered">
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>权限名称</th>
+            <th>父级</th>
+            <th>所属控制器</th>
+            <th>操作方法</th>
+            <th>全路径</th>
+            <th>级别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!--<td>Uma</td>-->
+            <!--<td>Pune</td>-->
+            <!--<td>411027</td>-->
+            <!--<td>411027</td>-->
+            <!--<td>411027</td>-->
+            <!--<td>411027</td>-->
+            <!--<td>411027</td>-->
+
+            <!--<td>-->
+                <!--<a href="#">编辑</a>-->
+                <!--<a href="#">删除</a>-->
+            <!--</td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        ajaxGetAuthList();
+
+
+        $('.delete').click(function () {
+            toastr.options={
+                positionClass :'toast-center',
+                hideDuration: "1000"
+            };
+
+
+            var  data={id:$(this).parent().siblings(":eq(0)").text()};
+
+           // alert($(this).parent().siblings(":eq(0)").text());
+            if(window.confirm('这是不可逆操作，确认删除')) {
+                $.ajax({
+                    url: '{:Url("Auth/authDel")}',
+                    data:data,
+                    type:'post',
+                    dataType:'json',
+                    success:function (data) {
+                        if(data['status']=='0'){
+                            toastr.error(data['message']);
+                        }else {
+                            toastr.success('删除成功');
+                            $(this).parents('tr').hide();
+                        }
+                    }
+                });
+                toastr.warning('删除成功');
+            }
+        });
+    });
+
+    function ajaxGetAuthList() {
+        $.ajax({
+            async: false,
+            url:'{:Url("Auth/getAuthList")}',
+            dataType:"JSON",
+            success:function (data) {
+                if(data['status']=='0'){
+                    $('table tbody').empty();
+                    var item="<tr><td colspan='8'>没有查找到任何数据...</td></tr>";
+                    $('table tbody').append(item);
+                }else{
+                    $('table tbody').empty();
+                    $.each(data,function (key,value) {
+                        var item="<tr><td id='id'>"+value['id']+"</td><td>"
+                                +value['a_name']+"</td><td>"
+                                +value['p_a_name']+"</td><td>"
+                                +value['controller']+"</td><td>"
+                                +value['action']+"</td><td>"
+                                +value['path']+"</td><td>"
+                                +value['level']+
+                                "</td><td>" +
+                                "<a href='#' class='edit'>编辑</a>" +
+                                "<a class='delete'>删除</a></td></tr>";
+                        $('table tbody').append(item);
+                    });
+                }
+            }
+
+        });
+    }
+
+
+
+
+    function AuthDel() {
+
+    }
+
+//
+//    function AuthDelAll() {
+//        /*未做*/
+//    }
+
+</script>

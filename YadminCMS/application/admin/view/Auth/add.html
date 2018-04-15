@@ -1,10 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="" style="margin-top: 20px">
+    <form class="form-horizontal" role="form" id="authForm">
+        <div class="form-group">
+            <label for="authname" class="col-xs-2 control-label">权限名称</label>
+            <div class="col-xs-6">
+                <input type="text" class="form-control" id="authname" name="authname" placeholder="权限名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="parentname" class="col-xs-2 control-label">权限父级</label>
+            <div class="col-xs-6">
+                <select name="parentname" class="form-control" id="parentname">
+                    <option value="0">请选择</option>
+                    <option value="1">2</option>
+                    <option value="2">3</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="controller" class="col-xs-2 control-label">权限控制器</label>
+            <div class="col-xs-6">
+                <input type="text" class="form-control" id="controller" name="controllername"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="func" class="col-xs-2 control-label">权限操作方法</label>
+            <div class="col-xs-6">
+                <input type="text" class="form-control" id="func" name="funcname"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-6">
+                <button type="button" id="add" class="btn btn-default" style="color: #fff;background-color: #2C3E50;border-color: #2C3E50;">添加</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="result"></div>
+<script>
+    $('button#add').click(function () {
+        toastr.options={
+            positionClass :'toast-center',
+            hideDuration: "1000"
 
-</body>
-</html>
+        }
+        var data = $('form#authForm').serialize();
+
+        var URL ="{:Url('Auth/add')}";
+
+        $.ajax({
+            async: false,
+            url: URL,
+            type: "post",
+            data: data,
+            dataType: "JSON",
+            success: function (data) {
+                if(data['status']=='0'){
+                    toastr.error(data['message']);
+                }else {
+                    toastr.success(data['message']);
+                }
+
+//                $('#result').a
+// append().css('color', 'green');
+            }
+        });
+    });
+</script>
+<script>
+    $.ajax({
+        url:'{:Url("Auth/getAuthList")}',
+        dataType:"JSON",
+        success:function (data) {
+
+            $('select#parentname').empty();
+
+            $('select#parentname').append("<option value='0'>请选择</option>");
+
+            $.each(data,function (key,value) {
+
+                var item="<option value='"+value['id']+"'>"+value['a_name']+"</option>";
+
+                $('select#parentname').append(item);
+            });
+
+        }
+
+
+    });
+
+
+
+</script>

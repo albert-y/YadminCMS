@@ -22,12 +22,16 @@ class Users extends  AdminBase
      * */
     public function index(){
 
+        $this->getUserList();
+
+        return view('index');
+
     }
     /*
      * 添加用户
      * */
     public function  add(){
-
+        return view('add');
     }
     /*
      * 添加用户提交
@@ -95,13 +99,20 @@ class Users extends  AdminBase
     public function getUserList(){
         $list=Db::table('esin_users')
             ->field("id,user_name as 'username',real_name as 'realname',user_password as 'password',last_login_time as 'logintime' ,last_login_ip as 'loginip', user_type as 'usertype' , status as 'status' , add_time as 'addtime'")
-            ->paginate(10);
+            ->paginate();
 //        dump($list);
         $count=Db::table('esin_users')->count();
-        return $this->fetch('Index/index',[
-            'list'=>$list,
-            'count'=>$count
-        ]);
+
+
+        $this->assign(
+            ['list'=>$list,'count'=>$count]);
+//        $this->fetch('Users/index');
+
+      //  return view('index');
+//        return $this->fetch('Users/index',[
+//            'list'=>$list,
+//            'count'=>$count
+//        ]);
 
     }
     public function deleteUser(){

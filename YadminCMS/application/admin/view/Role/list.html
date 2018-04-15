@@ -1,0 +1,59 @@
+<div class="" style="margin-top: 20px">
+
+    <table class="table table-bordered">
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>角色名称</th>
+            <th>角色描述</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name='list' id='vo'}
+        <tr>
+            <td>{$vo.role_id}</td>
+            <td>{$vo.role_name}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>
+                <a href="#" class="setauth">权限设置</a>
+                <a href="#">编辑</a>
+                <a href="#">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $('.setauth').click(function () {
+
+        var id=$(this).parent().parent().children('td:first').text();
+        var data={aid:id};
+
+        var item ="<li class='active set-auth'><a href='#set-auth' data-toggle='tab'>设置角色权限</a></li>";
+
+        if($('#myTab').children('li').hasClass('set-auth')){
+
+            $('#myTab li.set-auth').remove();
+
+            $('#myTab li.active').removeClass('active');
+            $('#myTab').append(item);
+
+            $('#myTabContent div.active').removeClass('in active');
+            $('#myTabContent').children('div:last').addClass('in active');
+         }else {
+
+            $('#myTab li.active').removeClass('active');
+            $('#myTab').append(item);
+
+            $('#myTabContent div.active').removeClass('in active');
+            $('#myTabContent').children('div:last').addClass('in active');
+
+        }
+    });
+</script>

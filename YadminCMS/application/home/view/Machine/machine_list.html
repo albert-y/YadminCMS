@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content class="row">
+
+    <div class="row data-show">
+        <div class="row show-content">
+            <ol class="breadcrumb">
+                <li>主页</li>
+                <li>资产管理</li>
+                <li>所有设备</li>
+            </ol>
+
+
+            <div id="toolbar" class="btn-group">
+                <a href="{:Url('GetUrl/machine_up_shelves')}" id="btn_add"  class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                </a>
+                <button href="#"   class="btn btn-default" data-toggle="modal" data-target="#export-modal">
+                    <span class="glyphicon glyphicon glyphicon-export" aria-hidden="true" ></span>导出
+                </button>
+                <button href="#"   class="btn btn-default">
+                    <span class="glyphicon glyphicon glyphicon-import" aria-hidden="true"></span>导入
+                </button>
+                    &nbsp;
+            </div>
+            <table class="text-center" id="machinetable" data-toggle="table"></table>
+
+        </div>
+        <!--数据到导出-->
+
+        <div class="modal fade" id="export-modal" tabindex="-1" role="dialog" aria-labelledby="exportModaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 120%;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="exportModaLabel">数据导出</h4>
+                    </div>
+                    <div class="modal-body row" id="machineExport" style="padding: 50px">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <a href='{:Url("Excel/machineExcelExportAll")}' class="btn btn-default">导出全部</a>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form class="form-horizontal " role="form" action="{:Url('Excel/machineExcelExportByTime')}" method="get">
+                                    <div class="col-xs-4">
+                                        <input type="text" name="starttime" value="" placeholder="点击选择起始时间" class="form-control"
+                                               id="datetimepicker1" data-date-format="yyyy-mm-dd">
+
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input type="text" name="endtime" value="" placeholder="点击选择结束时间" class="form-control"
+                                               id="datetimepicker2" data-date-format="yyyy-mm-dd">
+
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <button type="submit" class="btn btn-default">按时间导出</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+<!--设备下架处理-->
+        <div class="modal fade" id="down-modal" tabindex="-1" role="dialog" aria-labelledby="downModaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="downModaLabel">下架处理</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="downshelvesForm" class="form-horizontal" role="form">
+                            <div class="row" style="margin: 0px 10px 0 10px;padding-top:10px;">
+                                <div class="form-group">
+                                    <label for="device_destination" class="control-label col-xs-2"><span
+                                            class="required">*</span>下架去向</label>
+                                    <div class="col-xs-5">
+                                        <select class="form-control" name="device_destination" id="device_destination">
+                                            <option value="1">库房</option>
+                                            <option value="2">客户带走</option>
+                                            <option value="3">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="notes" class="control-label col-xs-2"><span
+                                            class="required">*</span>备注</label>
+                                    <div class="col-xs-6">
+                                        <textarea name="notes"  id="notes" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!--添加成功消息提示-->
+                                    <input type="text"  name="id" id="device_id" value=""/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary btn-xs" id="entdownshelves">确认下架</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--设备详情-->
+        <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="infoModaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 120%;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="infoModaLabel">设备详情</h4>
+                    </div>
+                    <form class="form-horizontal " role="form">
+                    <div class="modal-body row" id="machineDetailed">
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('#datetimepicker1').datetimepicker({
+                language: 'zh-CN',
+                minView: "month",
+                todayBtn: 1,
+                autoclose: 1
+            });
+            $('#datetimepicker2').datetimepicker({
+                language: 'zh-CN',
+                minView: "month",
+                todayBtn: 1,
+                autoclose: 1
+            });
+        </script>
+        <script type="text/javascript">
+            //初始化bootstrap-table的内容
+            function InitMainTable() {
+                //记录页面bootstrap-table全局变量$tabel,方便使用
+                $('#machinetable').bootstrapTable('destroy');
+                $('#machinetable').bootstrapTable({
+                    method: "POST",
+                    url: "{:Url('Machine_Manage/machineList')}",
+                    striped: true,  //表格显示条纹
+                    pagination: true, //启动分页
+                    pageSize: 15,  //每页显示的记录数
+                    pageNumber: 1, //当前第几页
+                    pageList: [5, 10, 15, 20, 25],  //记录数可选列表
+                    search: true,  //是否启用查询
+                    searchAlign: 'left',//设置搜索框位置
+                    showColumns: true,  //显示下拉框勾选要显示的列
+                    showRefresh: true,  //显示刷新按钮
+                    editable:true,
+                    paginationPreText: '上一页',
+                    paginationNextText: '下一页',
+                    paginationDetailHAlign: 'right',
+                    paginationHAlign: 'left',
+                    uniqueId: "id",  //每一行的唯一标识，一般为主键列
+                    sidePagination: "client", //表示服务端请求
+                    //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+                    //设置为limit可以获取limit, offset, search, sort, order
+                    checkboxHeader: true,
+                    toolbar: '#toolbar',
+                    showPaginationSwitch: true,
+                    //sortOrder: 'desc',
+                    showToggle: true,
+                    queryParamsType: "undefined",
+                    //exportDataType:  'basic' ,
+                columns: [{
+                        checkbox: 'true'
+
+                    },{
+                        field: 'up_shelves_date',//这里的名字就是json数据里的键名
+                        title: '上架时间',
+                        align : 'center'
+                    }, {
+                        field: 'asset_id',
+                        title: '资产编号',
+                        align : 'center',
+                        editable:{
+                            type:'text',
+                            title:'资产编号'
+                        }
+                    }, {
+                        field: 'device_sn',
+                        title: '序列号',
+                        align: 'center',
+                        editable:{
+                            type: 'text',
+                            title: '序列号',
+                            emptytext:"/",
+                            emptyclass:"color:#000"
+                        }
+
+                   }, {
+                        field: 'device_state',
+                        title: '设备状态',
+                        align : 'center'
+                    }, {
+                        field: 'device_type',
+                        title: '设备类型',
+                        align : 'center',
+                        editable:{
+                                  type:'text',
+//                            type:'select',
+//                            source:function () {
+//                                var result=[];
+//                                $.ajax({
+//                                    url: "{:Url('Machine_Manage/getDeviceType')}",//这里指向的就不再是页面了，而是一个方法。
+//                                    async: false,
+//                                    data: {},
+//                                    type: "get",
+//                                    dataType: "JSON",
+//                                    success: function (data) {
+//                                        $.each(data,function (key,value) {
+//                                            item = value['typename'];
+//                                            result.push(item);
+//                                        });
+//                                    }
+//                                });
+//                                return result;
+//                            }
+
+                        }
+
+                    }, {
+                        field: 'cabinet_name',
+                        title: '机柜',
+                        align : 'center',
+                        editable:{
+                            type:'text',
+                          //  type:'select',
+//                            source:function () {
+//                                var result=[];
+//                                $.ajax({
+//                                    url: "{:Url('IDC_Manage/getCabinetList')}",//这里指向的就不再是页面了，而是一个方法。
+//                                    async: false,
+//                                    data: {},
+//                                    type: "get",
+//                                    dataType: "JSON",
+//                                    success: function (data) {
+//                                        $.each(data,function (key,value) {
+//                                          //  result.push({ value: value.cabinet_id, text: value.cabinet_name });
+//                                            item = value['cabinetname'];
+//                                            result.push(item);
+//                                        });
+//                                    }
+//                                });
+//                                return result;
+//                            }
+
+                        }
+
+                    }, {
+                        field: 'device_standard',
+                        title: '设备规格',
+                        align : 'center',
+                        editable:{
+                            type:'text'
+
+                        }
+                    }, {
+                        field: 'device_config',
+                        title: '设备配置',
+                        align : 'center',
+                        editable:{
+                            type:'textarea',
+                            emptytext:"/",
+                            emptyclass:"color:#000"
+                        }
+                    }, {
+                        field: 'ip_address',
+                        title: '设别IP',
+                        align : 'center',
+                        editable:{
+                            type:'text'
+                        }
+                    }, {
+                        field: 'real_name',
+                        title: '操作人',
+                        align : 'center'
+                    }, {
+                        field: 'operation',
+                        title: '管理',
+                        align : 'center',
+                        events: 'operateEvents',//给按钮注册事件
+                        formatter: operateFormatter //表格中增加按钮
+                    }],
+                    onEditableSave: function (field, rowdata, oldValue, $el) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "{:Url('Machine_Manage/machineEdit')}",
+                            data: rowdata,
+                            dataType: 'JSON',
+                            success: function (data) {
+
+                                    alert(data['message']);
+
+                            },
+                            error: function () {
+                                alert('编辑失败');
+                            },
+                            complete: function () {
+
+                            }
+
+                        });
+                    }
+
+                });
+                function operateFormatter(value, row, index) {
+                    return [
+                        '<button  type="button" title="删除" class="btn btn-xs btn-danger delete" ><span class="glyphicon glyphicon-trash"></span></button>&nbsp;',
+                        '<button  type="button" title="下架" class="btn btn-xs btn-success down-shelves" data-toggle="modal" data-target="#down-modal"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>&nbsp;',
+                        '<button  type="button" title="详情" class="btn btn-xs btn-info detailed" data-toggle="modal" data-target="#info' +
+                        '-modal"><span class="glyphicon glyphicon-eye-open" ></span></button>'
+                    ].join('');
+                }
+                window.operateEvents = {
+                    "click .delete":function () {
+                        if(window.confirm('这是不可逆操作，确认删除')){
+                            var data={mid:$(this).parent().parent().attr('data-uniqueid')};
+
+                            $(this).parent().parent().remove();
+                            $.ajax({
+                                url:"{:Url('Machine_Manage/machineDelete')}",
+                                data:data,
+                                type:"GET",
+                                dataType:"JSON",
+                                success:function (data) {
+                                    if(data['status']=="0"){
+                                       alert(data['message']);
+                                    }else {
+                                        alert(data['message']);
+                                    }
+                                }
+                            });
+                        }else {
+                            return false;
+                        }
+                    },
+                    "click .down-shelves":function () {
+                        var data={mid:$(this).parent().parent().attr('data-uniqueid')};
+                        var mid =$(this).parent().parent().attr('data-uniqueid');
+                       // alert(mid);
+                        $.ajax({
+                            url:"{:Url('Machine_Manage/getMachineNotes')}",
+                            data:data,
+                            type:"POST",
+                            dataType:"JSON",
+                            success:function (data) {
+                                $('#notes').text(data['notes']);
+                                $('#device_id').val(mid).hide();
+                            }
+                        });
+                    },
+                    "click .detailed":function(){
+                        var data={mid:$(this).parent().parent().attr('data-uniqueid')};
+                        $.ajax({
+                            url:"{:Url('Machine_Manage/machineDetailed')}",
+                            data:data,
+                            type:"POST",
+                            dataType:"JSON",
+                            success:function (data) {
+                                $('#machineDetailed').empty();
+                                $.each(data,function (key,value) {
+                                   var item="<div class='form-group'><lable class='col-xs-3 control-label'>"
+                                            +key+":</lable><div class='col-xs-9'>"
+                                            +value+"</div></div>";
+                                   $('#machineDetailed').append(item);
+                                });
+                            }
+                        });
+
+                    }
+                };
+
+            }
+            $(document).ready(function () {
+                InitMainTable();
+
+            });
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#entdownshelves').click(function () {
+                    data=$("#downshelvesForm").serialize();
+                   // data={id:$('#device_id').text()};
+                   $.ajax({
+                       url:"{:Url('Machine_Manage/downShelves')}",
+                       data:data,
+                       dataType:"json",
+                       type:"POST",
+                       success:function (data) {
+                           alert(data['message']);
+                       }
+                   });
+
+                });
+            });
+        </script>
+    </div>
+</content>
+<footer>
+    {include file="Common:footer"/}
+</footer>
+</body>
+</html>

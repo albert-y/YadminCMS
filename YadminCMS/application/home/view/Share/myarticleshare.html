@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<style>
+    a {color: #23262E;}
+    .tab-content a:hover{color: orangered;text-decoration: none}
+</style>
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+
+    <div class="row data-show">
+        <div class="row show-content">
+
+                <ol class="row breadcrumb">
+                    <li>首頁</li>
+                    <li>技术分享</li>
+                    <li>我的分享</li>
+                </ol>
+
+
+
+                <div class="row" >
+                    <ul style="float: right;">
+                        <li class="active" style="display: inline;"><span class="glyphicon  glyphicon-cloud-upload" style="color:#4cb0f9;"></span><a href="{:URL('Share/uploadFile')}" target="_blank">上传资料</a></li>&nbsp;
+                        <li class="active" style="display: inline;"><span class="glyphicon  glyphicon-edit" style="color: #50D4FD;"></span><a href="{:URL('GetUrl/addArticleShare')}" target="_blank">写文档</a></li>
+                    </ul>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="{:URL('Share/myArticleList')}">文章</a></li>
+                        <li ><a href="{:URL('Share/myAssetList')}" >资源</a></li>
+                    </ul>
+
+                    <div class="tab-content" >
+                        <div class="tab-pane active">
+                            {volist name='list' id='vo'}
+                                <div class="row" style="border-bottom: 1px solid #d7d4f0  ;border-bottom-style: dashed; margin:10px; padding: 10px">
+                                    <div class="row">
+                                        <div class="col-xs-11">
+                                             <h4><a href="{:URL('Share/articlePage',['id'=>$vo.id])}">{$vo.title}</a></h4>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <small style="tab-size: 10px">
+                                                {if condition="$vo['classify'] == '服务器'"}
+                                                <span class="label label-default">{$vo.classify}</span>
+                                                {elseif condition="$vo['classify'] == '网络'"}
+                                                <span class="label label-primary">{$vo.classify}</span>
+                                                {else /}
+                                                <span class="label label-danger">{$vo.classify}</span>
+                                                {/if}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-11">
+                                            <span style="color: #8D8D8D;height: 50px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;">{$vo.content}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="font-size: small;color: #9d9d9d;margin-top: 10px">
+                                        <div class="col-xs-12">
+                                            <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-trash"></span>删除</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-pencil"></span>编辑</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-thumbs-up"></span>28赞</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-eye-open"></span>浏览61次</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-comment"></span>1条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            发表时间：{$vo.operatetime}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/volist}
+                            <div style="text-align: center">{$list->render()}</div>
+                            <div style="text-align: center">共有{$count}条</div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+</body>
+</html>

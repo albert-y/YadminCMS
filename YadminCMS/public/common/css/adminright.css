@@ -1,10 +1,10 @@
 .adminright{
     width: 100%;
-    margin-top: 50px;
-    padding-top: 20px;
-    overflow: auto;
+    padding-top: 70px;
     text-align: left;
-    height: 92%;float: right;
+    height: 100%;
+    float: right;
+    overflow:auto;
 }
 .adminright a{
     color:  #18BC9C;
@@ -12,3 +12,9 @@
 .adminright > .col-xs-12 > .nav-tabs > li > a{
     color: #18BC9C;
 }
+
+.adminright table  tbody  tr  td{
+    text-align: center;
+    overflow: hidden;
+}
+

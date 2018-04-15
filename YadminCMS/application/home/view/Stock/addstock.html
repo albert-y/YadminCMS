@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"/}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content class="row">
+
+    <div class="row form-horizontal">
+            <div class="row show-content">
+                <ol class="breadcrumb">
+                    <li>首頁</li>
+                    <li>仓库管理</li>
+                    <li>库存登记</li>
+                </ol>
+            </div>
+            <div class="row border">
+                <div class="form-group">
+                    <span  class="col-xs-2 control-label" style="color: #ff0000">(标有*为必填选项)</span>
+                </div>
+                <div class="form-group">
+                    <label for="stocktype" class="col-xs-1 control-label">选择类型</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="line" id="stocktype">
+                            <option value="0">未选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="line" style="display: none">
+                    <form class="form-horizontal" role="form" id="lineform">
+                        <div class="form-group">
+                            <label for="linetype" class="col-xs-1 control-label">网线类型</label>
+                            <div class="col-xs-2">
+                                <select class="form-control" name="linetype" id="linetype">
+
+                                </select>
+                            </div>
+
+                            <label class="col-xs-1 control-label">*型号</label>
+                            <div class="col-xs-5">
+                                <select class="form-control" name="modelnum" id="modelnum">
+
+
+                                </select>
+                            </div>
+                            <a href="{:Url('GetUrl/addModelNum')}" class="btn btn-sm btn-info">添加型号</a>
+
+                        </div>
+                        <!--网线添加-->
+
+                        <div class="form-group">
+                            <label for="count" class="col-xs-1 control-label">*数量</label>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" name="count" id="count">
+                            </div>
+                            <label for="length" class="col-xs-1 control-label">*长度</label>
+                            <div class="col-xs-3">
+                                <input class="form-control" type="text" name="length" id="length" placeholder="例如：1M，10M">(单位：M/米 M大写)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company" class="col-xs-1 control-label">*所属公司</label>
+                            <div class="col-xs-5">
+                                <input class="form-control" type="text" name="company" id="company">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="machineType" class="col-xs-1 control-label">*所用设备</label>
+                            <div class="col-xs-2">
+                                <select class="form-control" name="usedevice" id="machineType">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cabinet-name" class="col-xs-1 control-label">*所用机柜</label>
+                            <div class="col-xs-5">
+                                <select class="form-control selectpicker"  name="useaddr" id="cabinet-name" multiple data-size="5">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-xs-1 control-label">备注</label>
+                            <div class="col-xs-5">
+                                <textarea  class="form-control" name="notes"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 col-xs-offset-1">
+                                <!--添加成功消息提示-->
+                                <span class="hint"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 col-xs-offset-1">
+                                <button type="button" class="btn btn-primary " id="addlinebtn">确认添加</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="parts" style="display: none">
+                    <form class="form-horizontal" role="form" id="partsform">
+                        <div class="form-group">
+                            <label for="parttype" class="col-xs-1 control-label">配件类型</label>
+                            <div class="col-xs-2">
+                                <select class="form-control" name="parttype" id="parttype">
+
+                                </select>
+                            </div>
+
+                            <label class="col-xs-1 control-label"><span class="required">*</span>型号</label>
+                            <div class="col-xs-5">
+                                <select class="form-control" name="modelnum" id="partmodelnum">
+
+                                </select>
+                            </div>
+                            <a href="{:Url('GetUrl/addModelNum')}" class="btn btn-sm btn-info">添加型号</a>
+
+                        </div>
+                        <!--模块添加-->
+                        <div class="form-group">
+                            <label  class="col-xs-1 control-label">*数量</label>
+                            <div class="col-xs-5">
+                                <input class="form-control" type="text" name="count" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-xs-1 control-label">*所属公司</label>
+                            <div class="col-xs-5">
+                                <input class="form-control" type="text" name="company" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-xs-1 control-label">*所用设备</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="usedevice">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-xs-1 control-label">备注</label>
+                            <div class="col-xs-5">
+                                <textarea  class="form-control" name="notes"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 col-xs-offset-1">
+                                <!--添加成功消息提示-->
+                                <span class="hint"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 col-xs-offset-1">
+                                <button type="button" class="btn btn-primary " id="addpartsbtn">确认添加</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+    </div>
+</content>
+<footer>
+    {include file="Common:footer"/}
+</footer>
+</body>
+<script>
+    <!--获取机柜列表-->
+    $.ajax({
+        url: "{:Url('IDC_Manage/getCabinetList')}",//这里指向的就不再是页面了，而是一个方法。
+        async: false,
+        data: {},
+        type: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            var item;
+            $.each(data, function (i, result) {
+                item = "<option value='" + result['cabinetname'] + "'>" + result['cabinetname'] + "</option>";
+                $('#cabinet-name').append(item);
+            });
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+       $.ajax({
+           url: "{:Url('Stock/getStockType')}",
+           data: '',
+           type: "POST",
+           dataType: "JSON",
+           success: function (data) {
+               var item;
+               $.each(data, function (i, result) {
+                   item = "<option value='" + result['id'] + "'>" + result['typename'] + "</option>";
+                   $('#stocktype').append(item);
+               });
+           }
+       });
+    });
+
+
+    $('#stocktype').change(function () {
+        if($(this).val()==1){
+            $('#parts').hide();
+            $('#line').show();
+            var data = {typeid: $(this).val()};
+            var appendaddr="#linetype";
+            getDataAjax(data,appendaddr);
+        }else if($(this).val()==2){
+            $('#line').hide();
+            $('#parts').show();
+            var data = {typeid: $(this).val()};
+            var appendaddr="#parttype";
+            getDataAjax(data,appendaddr);
+        }else {
+            $('#line').hide();
+            $('#parts').hide();
+            alert('请选择要添加类型');
+        }
+    });
+    $('#linetype').change(function () {
+        var data = {typeid: $(this).val()};
+        var appendaddr="#modelnum";
+        if($(this).val()!=0){
+            getDataAjax(data,appendaddr);
+        }else {
+            $(appendaddr).empty();
+        }
+    });
+    $('#parttype').change(function () {
+        var data = {typeid: $(this).val()};
+        var appendaddr="#partmodelnum";
+        if($(this).val()!=0){
+            getDataAjax(data,appendaddr);
+        }else {
+            $(appendaddr).empty();
+        }
+    });
+    function getDataAjax(data,appendaddr) {
+        $.ajax({
+            url: "{:Url('Stock/getModelNum')}",
+            data: data,
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+
+                $(appendaddr).empty().append("<option value='0'>未选择</option>");
+                var item;
+                $.each(data, function (i, result) {
+                    item = "<option value='" + result['id'] + "'>" + result['typename'] + "</option>";
+                    $(appendaddr).append(item);
+                });
+            }
+        });
+    }
+
+
+
+</script>
+<script>
+    function FormValidator(obj) {
+        $(obj).bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                modelnum: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择型号'
+                        }
+                    }
+                },
+                company: {
+                    validators: {
+                        notEmpty: {
+                            message: '公司名不能为空'
+                        }
+                    }
+                },
+                usedevice: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+
+                    }
+                },
+                useaddr: {
+
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+
+                    }
+                },
+                count: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9]*$/,
+                            message: '必须由数字组成'
+                        }
+                    }
+                },
+                length: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        },
+                        regexp: {
+                            regexp: /^[0-9A-Z]*$/,
+                            message: '必须由大写字母或数字组成'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    $('#addlinebtn').click(function () {
+        var obj="#lineform";
+        FormValidator(obj);
+        $(obj).bootstrapValidator('validate');
+        $bv = $(obj).data("bootstrapValidator").isValid();
+        //            alert($bv);
+        if ($bv) {
+            var data = $(obj).serialize();
+          //  data={useaddr:$('#cabinet-name').text()}
+            var url="{:Url('Stock/addLine')}";
+//            $.each(data,function (k,v) {
+//               alert(""+v['k']);
+//            });
+            addStockAjax(url,data);
+
+        } else {
+            alert('标注*为必填选项，提交前请填写完整');
+        }
+
+    });
+
+    $('#addpartsbtn').click(function () {
+        var obj="#partsform";
+        FormValidator(obj);
+        $(obj).bootstrapValidator('validate');
+        $bv = $(obj).data("bootstrapValidator").isValid();
+        //            alert($bv);
+        if ($bv) {
+
+            var data = $(obj).serialize();
+
+            var url="{:Url('Stock/addParts')}";
+
+            addStockAjax(url,data);
+
+        } else {
+            alert('标注*为必填选项，提交前请填写完整');
+        }
+    });
+
+    function addStockAjax(url,data) {
+        $.ajax({
+            url: url,
+            data: data,
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                if(data['status']=0){
+                    $('.hint').empty().append(data['message']).css('color', 'red');
+                }else{
+                    $('.hint').empty().append(data['message']).css('color', 'green');
+                }
+
+            }
+        });
+
+    }
+</script>
+<script>
+    <!--获取设备类型-->
+    $.ajax({
+        url: "{:Url('Machine_Manage/getDeviceType')}",//这里指向的就不再是页面了，而是一个方法。
+        async: false,
+        data: {},
+        type: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            var item;
+            $.each(data, function (i, result) {
+                item = "<option value='" + result['typename'] + "'>" + result['typename'] + "</option>";
+                $('#machineType').append(item);
+            });
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content class="row">
+
+    <div class="row data-show">
+        <form class="form-horizontal " role="form" id="up_shelves" action="">
+            <div class="row show-content">
+                <ol class="breadcrumb">
+                    <li>首頁</li>
+                    <li>仓库管理</li>
+                    <li>库存登记</li>
+                </ol>
+            </div>
+
+            <div class="row border container-fluid" style="padding: 20px;">
+                <div class="form-group">
+                    <label for="datetimepicker" class="col-xs-1 control-label">日期</label>
+                    <div class="col-xs-2">
+                        <input type="text" name="update" value="" placeholder="点击选择时间" class="form-control"
+                               id="datetimepicker" data-date-format="yyyy-mm-dd">
+                    </div>
+                    <label for="machineFrom" class="col-xs-1 control-label">设备来源</label>
+                    <div class="col-xs-2">
+                        <span></span>
+                        <input type="text" class="form-control" name="machineFrom" id="machineFrom" placeholder="设别来源">
+                    </div>
+                    <label for="companyName" class="col-xs-1 control-label">公司名称</label>
+                    <div class="col-xs-2">
+                        <span></span>
+                        <input type="text" class="form-control" name="companyName" id="companyName" placeholder="所属公司">
+                    </div>
+                    <label for="machineType" class="col-xs-1 control-label">设备类型</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="machineType" name="machineType">
+                        </select>
+                        <!--<input type="text" class="form-control" name="machineType" id="machineType" placeholder="设备类型">-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="seriesNumber" class="col-xs-1 control-label">序列号</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="seriesNumber" id="seriesNumber" placeholder="序列号">
+                    </div>
+                    <label for="machineNumber" class="col-xs-1 control-label">资产编号</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="asset_id" id="machineNumber"
+                               placeholder="资产编号">
+                    </div>
+                    <label for="cabinet-name" class="col-xs-1 control-label">上架机柜</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="cabinet-name" name="cabinet">
+                            <option value="0">请选择</option>
+                        </select>
+                    </div>
+                    <label for="IP" class="col-xs-1 control-label">设备IP</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="IP" id="IP" placeholder="设备IP">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="machineStandard" class="col-xs-1 control-label">规格</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="machineStandard" id="machineStandard"
+                               placeholder="规格">
+                    </div>
+                    <label for="oldsite" class="col-xs-1 control-label">老后台</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="oldsite" name="oldsite">
+                            <option value="0">未录</option>
+                            <option value="1">已录</option>
+                        </select>
+                    </div>
+                    <label for="newsite" class="col-xs-1 control-label">新后台</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="newsite" name="newsite">
+                            <option value="0">未录</option>
+                            <option value="1">已录</option>
+                        </select>
+                    </div>
+                    <label for="toldBusinessDept" class="col-xs-1 control-label">通知商务</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="toldBusinessDept" name="toldBusinessDept">
+                            <option value="0">未通知</option>
+                            <option value="1">已通知</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="creatorid" class="col-xs-1 control-label">操作人</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="creatorid" name="creatorid">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="machineInfo" class="col-xs-1 control-label">品牌型号配置</label>
+                    <div class="col-xs-5">
+                        <textarea class="form-control" id="machineInfo" name="machineInfo"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="notes" class="col-xs-1 control-label">备注</label>
+                    <div class="col-xs-5">
+                        <textarea class="form-control" id="notes" name="notes"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 col-xs-offset-1">
+                        <!--添加成功消息提示-->
+                        <span id="result"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 col-xs-offset-1">
+                        <button type="button" id="up_shelves_btn" class="btn btn-primary ">确认上架</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script>
+            $('#datetimepicker').datetimepicker({
+                language: 'zh-CN',
+                minView: "month",
+                todayBtn: 1,
+                autoclose: 1
+            });
+        </script>
+        <script>
+            <!--获取设备类型-->
+            $.ajax({
+                url: "{:Url('Machine_Manage/getDeviceType')}",//这里指向的就不再是页面了，而是一个方法。
+                async: false,
+                data: {},
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var item;
+                    $.each(data, function (i, result) {
+                        item = "<option value='" + result['id'] + "'>" + result['typename'] + "</option>";
+                        $('#machineType').append(item);
+                    });
+                }
+            });
+        </script>
+        <script>
+            <!--获取机柜列表-->
+            $.ajax({
+                url: "{:Url('IDC_Manage/getCabinetList')}",//这里指向的就不再是页面了，而是一个方法。
+                async: false,
+                data: {},
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var item;
+                    $.each(data, function (i, result) {
+                        item = "<option value='" + result['id'] + "'>" + result['cabinetname'] + "</option>";
+                        $('#cabinet-name').append(item);
+                    });
+                }
+            });
+        </script>
+        <script>
+            <!--获取操作人姓名-->
+            $.ajax({
+
+                url: "{:Url('Users/getUserNameList')}",//这里指向的就不再是页面了，而是一个方法。
+                async: false,
+                data: {},
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var item;
+                    $.each(data, function (i, result) {
+                        item = "<option value='" + result['id'] + "'>" + result['real_name'] + "</option>";
+                        $('#creatorid').append(item);
+                    });
+                }
+            });
+        </script>
+        <script>
+            //   表单数据验证
+            $('#up_shelves').bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+//            上架时间
+                    update: {
+                        selector: "#datetimepicker",
+                        validators: {
+                            notEmpty: {
+                                message: '请选择时间'
+                            }
+                        }
+
+                    },
+//                来源
+                    machineFrom: {
+                        selector: '#machineFrom',
+                        validators: {
+                            notEmpty: {
+                                message: '物品来源/去向不能为空'
+                            }
+                        }
+                    },
+//                公司名
+                    companyName: {
+                        selector: '#companyName',
+                        validators: {
+                            notEmpty: {
+                                message: '公司名不能为空'
+                            }
+                        }
+                    },
+//                物品名
+                    machineName: {
+                        selectot: '#machineName',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+
+                        }
+                    },
+                    machineType: {
+                        selectot: '#machineType',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+
+                        }
+                    },
+                    cabinet: {
+                        selectot: '#cabinet-name',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+
+                        }
+                    },
+//          资产编号
+                    asset_id: {
+                        selector: '#machineNumber',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            },
+                            regexp: {
+                                regexp: /^[A-Z0-9]*$/,
+                                message: '必须由大写字母或数字组成'
+                            },
+                            remote: {
+                                //ajax 验证 service result：{"valid",true or false} 向服务器发送当前input name值，获得一个json数据
+                                url: "{:url('Machine_Manage/validateMachineNumber')}",//验证地址
+                                message: "序列号已经存在",//提示消息
+                                type: "POST"//提交方式
+                            }
+
+                        }
+                    },
+                    //          IP
+                    IP: {
+                        selector: '#IP',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            },
+                            regexp: {
+                                regexp: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/,
+                                message: '请填写有效的IP地址'
+                            },
+                            remote: {
+                                //ajax 验证 service result：{"valid",true or false} 向服务器发送当前input name值，获得一个json数据
+                                url: "{:url('Machine_Manage/validateIP')}",//验证地址
+                                message: "IP已经存在",//提示消息
+                                type: "POST"//提交方式
+                            }
+
+                        }
+                    },
+//                操作人
+                    creatorid: {
+                        selector: '#creatorid',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+//                规格
+                    machineStandard: {
+                        selector: '#machineStandard',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+
+//                通知商务
+                    toldBusinessDept: {
+                        selector: '#toldBusinessDept',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+//                物品信息
+                    machineInfo: {
+                        selector: '#machineInfo',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            },
+                            stringCase: {
+                                message: '英文大写',
+                                case: 'upper'
+                            }
+                        }
+                    }
+                }
+            });
+            $('#up_shelves_btn').click(function () {
+                $('#up_shelves').bootstrapValidator('validate');
+                $bv = $('#up_shelves').data("bootstrapValidator").isValid();
+                //            alert($bv);
+                if ($bv) {
+                    var addList = $('#up_shelves').serialize();
+
+                    $.ajax({
+                        //  async: false,
+                        url: "{:Url('Machine_Manage/machineUpShelves')}",
+                        data: addList,
+                        type: "POST",
+                        success: function (data) {
+                            $('#result').empty().append(data['message']).css('color', 'green');
+                        }
+                    });
+                } else {
+                    alert('标注*为必填选项，提交前请填写完整');
+                }
+            });
+        </script>
+        </div>
+</content>
+<footer>
+    {include file="Common:footer"/}
+</footer>
+</body>
+</html>

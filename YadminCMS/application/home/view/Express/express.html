@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+
+    <div class="row data-show">
+        <div class="row show-content">
+            <ol class="breadcrumb">
+                <li>首頁</li>
+                <li>其他</li>
+                <li>快递信息</li>
+            </ol>
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="btn_add" class="btn btn-default" data-toggle="modal" data-target="#express-modal">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>快递登记
+                </button>
+                &nbsp;
+            </div>
+            <table class="text-center" id="express-list" data-toggle="table"></table>
+        </div>
+        <div class="modal fade" id="express-modal" tabindex="-1" role="dialog" aria-labelledby="expressModaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="expressModaLable">快递登记</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addexpress">
+                            <div class="row" style="margin: 0px 10px 0 10px;padding-top:10px;">
+                                <div class="form-group">
+                                    <label for="expressName" class="control-label"><span
+                                            class="required">*</span>货物名称</label>
+                                    <input type="text" class="form-control" name="expressname" id="expressName"
+                                           placeholder="示例：交换机S5700">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expressNum" class="control-label"><span
+                                            class="required">*</span>快递单号</label>
+                                    <input type="text" class="form-control" name="expressnum" id="expressNum"
+                                           placeholder="示例：40000000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expressCount" class="control-label"><span
+                                            class="required">*</span>数量</label>
+                                    <input type="text" class="form-control" name="expresscount" id="expressCount"
+                                           placeholder="示例：10">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipients" class="control-label"><span
+                                            class="required">*</span>收件人</label>
+                                    <input type="text" class="form-control" name="recipients" id="recipients"
+                                           placeholder="示例：韩梅梅/XXX公司">
+                                </div>
+                                <div class="form-group">
+                                    <label for="consignor" class="control-label"><span
+                                            class="required">*</span>寄件人</label>
+                                    <input type="text" class="form-control" name="consignor" id="consignor"
+                                           placeholder="示例：李雷/XXX公司">
+                                </div>
+                                <div class="form-group">
+                                    <label for="notes" class="control-label"><span
+                                            class="required">*</span>备注</label>
+                                    <textarea class="form-control" name="notes" id="notes"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <!--添加消息提示-->
+                                    <span id="hint"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary btn-xs" id="add-express">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--详情模态框-->
+        <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="infoModaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 120%;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="infoModaLabel">详情</h4>
+                    </div>
+                    <form class="form-horizontal " role="form">
+                        <div class="modal-body row" id="expressDetailed">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+</body>
+<!--table显示所有机房信息-->
+<script type="text/javascript">
+
+    //初始化bootstrap-table的内容
+    function InitMainTable() {
+        //记录页面bootstrap-table全局变量$tabel,方便使用
+        $('#express-list').bootstrapTable('destroy');
+        $('#express-list').bootstrapTable({
+            method: "POST",
+            url: "{:Url('Express/expressList')}",
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            pageSize: 15,  //每页显示的记录数
+            pageNumber: 1, //当前第几页
+            pageList: [5, 10, 15, 20, 25],  //记录数可选列表
+            search: true,  //是否启用查询
+            searchAlign: 'left',//设置搜索框位置
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            paginationDetailHAlign: 'right',
+            paginationHAlign: 'left',
+            uniqueId: "id",
+            sidePagination: "client", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            checkboxHeader: true,
+            toolbar: '#toolbar',
+            showPaginationSwitch: true,
+            sortOrder: 'desc',
+            showToggle: true,
+            queryParamsType: "undefined",
+            columns: [{
+                checkbox: 'true'
+            },{
+                field:'operatetime',
+                title: '时间'
+            },{
+                field: 'expressnum',//这里的名字就是json数据里的键名
+                title: '快递单号',
+                editable:{
+                    type:'text',
+                    emptytext:"/",
+                    emptyclass:"color:#000"
+                }
+            },{
+                field: 'expressname',//这里的名字就是json数据里的键名
+                title: '货物名称',
+                editable:{
+                    type:'text',
+                    emptytext:"/",
+                    emptyclass:"color:#000"
+                }
+            },{
+                field: 'expresscount',//这里的名字就是json数据里的键名
+                title: '数量',
+                editable:{
+                    type:'text',
+                    emptytext:"/",
+                    emptyclass:"color:#000"
+                }
+            },{
+                field: 'recipients',//这里的名字就是json数据里的键名
+                title: '收件人',
+                editable:{
+                    type:'text',
+                    emptytext:"/",
+                    emptyclass:"color:#000"
+                }
+            },{
+                field: 'consignor',//这里的名字就是json数据里的键名
+                title: '寄件人',
+                editable:{
+                    type:'text',
+                    emptytext:"/",
+                    emptyclass:"color:#000"
+                }
+            },{
+                field: 'editor',//这里的名字就是json数据里的键名
+                title: '操作人'
+            },{
+                field: 'operation',
+                title: '管理',
+                events: 'operateEvents',//给按钮注册事件,
+                formatter: operateFormatter
+            }],
+            onEditableSave: function (field, rowdata, oldValue, $el) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "{:Url('Express/editExpress')}",
+                    data: rowdata,
+                    dataType: 'JSON',
+                    success: function (data) {
+                        alert(data['message']);
+                        //alert(data['message']);
+                    },
+                    error: function () {
+                        alert('编辑失败');
+                    },
+                    complete: function () {
+                    }
+
+                });
+            }
+
+        });
+        function operateFormatter(value, row, index) {
+            return [
+                '<button  type="button" title="删除" class="btn btn-xs btn-danger delete" ><span class="glyphicon glyphicon-trash"></span></button>&nbsp;',
+                '<button  type="button" title="详情" class="btn btn-xs btn-info detailed"  data-toggle="modal" data-target="#info' +
+                '-modal"><span class="glyphicon glyphicon-eye-open"></span></button>'
+            ].join('');
+        }
+
+        window.operateEvents = {
+            "click .delete":function () {
+                if(window.confirm('这是不可逆操作，确认删除')){
+                    var data={sid:$(this).parent().parent().attr('data-uniqueid')};
+
+                    $(this).parent().parent().remove();
+                    $.ajax({
+                        url:"{:Url('Express/delExpress')}",
+                        data:data,
+                        type:"POST",
+                        dataType:"JSON",
+                        success:function (data) {
+                            if(data['status']=="0"){
+                                alert(data['message']);
+                            }else if(data['status']=='1'){
+                                alert(data['message']);
+                            }else if(data['status']=='2'){
+                                alert(data['message']);
+
+                            }else{
+                                alert(data['message']);
+                            }
+                        }
+                    });
+                }else {
+                    return false;
+                }
+            },
+            "click .detailed":function(){
+                var data={sid:$(this).parent().parent().attr('data-uniqueid')};
+                $.ajax({
+                    url:"{:Url('Express/detailedExpress')}",
+                    data:data,
+                    type:"POST",
+                    dataType:"JSON",
+                    success:function (data) {
+                        $('#expressDetailed').empty();
+                        $.each(data,function (key,value) {
+                            var item="<div class='form-group'><lable class='col-xs-3 control-label'>"
+                                    +key+":</lable><div class='col-xs-9'>"
+                                    +value+"</div></div>";
+                            $('#expressDetailed').append(item);
+                        });
+                    }
+                });
+
+            }
+        };
+    }
+    $(document).ready(function () {
+        InitMainTable();
+    });
+</script>
+
+<!--添加快递信息-->
+<script>
+    $('#addexpress').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            //设备类型
+            expressname: {
+                selector: '#expressName',
+                validators: {
+                    notEmpty: {
+                        message: '此项不能为空'
+                    }
+                }
+            },
+            expressnum:{
+                selector: '#expressNum',
+                validators: {
+                    notEmpty: {
+                        message: '此项不能为空'
+                    }
+                }
+            },
+            expresscount:{
+                selector: '#expressCount',
+                validators: {
+                    notEmpty: {
+                        message: '此项不能为空',
+                        regexp: {
+                            regexp: /^[0-9]*$/,
+                            message: '您填写的不是有效数字'
+                        }
+                    }
+                }
+            },
+            recipients:{
+                selector: '#recipients',
+                validators: {
+                    notEmpty: {
+                        message: '此项不能为空'
+                    }
+                }
+            },
+            consignor:{
+                selector: '#consignor',
+                validators: {
+                    notEmpty: {
+                        message: '此项不能为空'
+                    }
+                }
+            }
+
+        }
+    });
+    $("#add-express").click(function () {
+        $('#addexpress').bootstrapValidator('validate');
+        $bv = $('#addexpress').data("bootstrapValidator").isValid();
+        if ($bv) {
+            var addData = $("#addexpress").serialize();
+            $.ajax({
+                url: "{:Url('Express/addExpress')}",//这里指向的就不再是页面了，而是一个方法。
+                async: false,
+                data: addData,
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data['status'] == 0 || data['status'] == 2 || data['status'] == 3) {
+                        $('#hint').empty().append(data['message']).css('color', 'red');
+                    } else if (data['status'] == 1) {
+                        $('#hint').empty().append(data['message']).css('color', 'green');
+                    }
+                },
+                error: function () {
+                    alert('提交失败');
+                },
+                complete: function () {
+                }
+            });
+        }else {
+            alert('标注*为必填选项，提交前请填写完整');
+        }
+        // alert();
+    });
+</script>
+</html>
+
+
+

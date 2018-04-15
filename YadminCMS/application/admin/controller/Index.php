@@ -16,6 +16,10 @@ class Index extends AdminBase
     {
         return view('Index/index');
     }
+    public function getDefault(){
+        return view('Main/default');
+    }
+
 
 
 }

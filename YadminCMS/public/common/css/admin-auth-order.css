@@ -1,0 +1,14 @@
+.admin_auth_order > ul{
+    /*border: 1px solid #a6a6a6;*/
+    padding: 0;
+}
+.admin_auth_order  ul  li{
+    color: #616161;
+    list-style-type: none;
+    /*border-top: 1px solid #a6a6a6;*/
+}
+.admin_auth_order ul li:hover{
+    color: #a6a6a6;
+    cursor: hand;
+}
+

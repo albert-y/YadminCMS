@@ -1,0 +1,74 @@
+<ol class="breadcrumb">
+    <li>主页</li>
+    <li>用户管理</li>
+    <li>添加用户</li>
+</ol>
+<div class="row container-fluid" style="margin-top: 5%;">
+<form class="form-horizontal" role="form"  method="post" id="adduser">
+    <div class="form-group">
+        <label for="type" class="col-xs-2 control-label">选择用户权限</label>
+        <div class="col-xs-5">
+            <select class="form-control" name="type" id="type">
+                <option value="0">普通</option>
+                <option value="1">管理员</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="firstname" class="col-xs-2 control-label">用户名</label>
+        <div class="col-xs-5">
+            <input type="text" class="form-control" id="firstname" name="username" placeholder="请输入名字">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="passwd" class="col-xs-2 control-label">用户密码</label>
+        <div class="col-xs-5">
+            <input type="password" class="form-control" id="passwd" name="password" placeholder="请输入密码">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="repasswd" class="col-xs-2 control-label">确认密码</label>
+        <div class="col-xs-5">
+            <input type="text" class="form-control" id="repasswd" placeholder="请再次输入密码"><span class="error"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="realname" class="col-xs-2 control-label">真实姓名</label>
+        <div class="col-xs-5">
+            <input type="text" name="realname" class="form-control" id="realname" placeholder="请输入员工的真实姓名"><span class="error"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-5">
+            <button type="button" class="btn btn-primary" id="add-btn">添加</button>
+        </div>
+    </div>
+</form>
+</div>
+<script>
+$(function () {
+    $('#add-btn').click(function () {
+        var addList=$('#adduser').serialize();
+        $.ajax({
+            url:"{:Url('Users/addEmployee')}",
+            data:addList,
+            type:"POST",
+            dataType:"JSON",
+            success: function(data){
+                if(data['status']==0){
+                    $('.error').empty().append(data['massage']).css('color','red');
+                }else if(data['status']==1){
+                    $('.error').empty().append(data['massage']).css('color','green');
+                    setTimeout(function(){
+                        window.location.reload();
+                        window.open("'"+data['massage']+"'","","top=300,left=30%");
+                    },2000);
+                }else if(data['status']==2){
+                    $('.error').empty().append(data['massage']).css('color','red');
+                }
+            }
+        });
+    });
+});
+
+</script>

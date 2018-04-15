@@ -1,5 +1,11 @@
 .adminleft {
-    margin-top: 50px;
+    /*margin-top: 50px;*/
+    margin-bottom:0px;
+    background-color: #f2f2f2;
+    border:2px solid #e7e7e7;
+    color: #2C3E50;
+    height: 100%;
+    padding-top: 50px;
 }
 .adminleft > .panel-group{
     margin-top: 0px;
@@ -13,8 +19,7 @@
 
 }
 .adminleft  > .panel-group >  .adminleftmenu{
-    height:82%;
-    overflow-y:auto;
+    width: 100%;
 }
 .adminleft > .panel-group > .panel > .panel-heading:hover{
     background-color: #fafafa;

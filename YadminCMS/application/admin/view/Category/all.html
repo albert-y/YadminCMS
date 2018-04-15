@@ -1,0 +1,68 @@
+<div class="" style="margin-top: 20px">
+
+    <table class="table table-bordered">
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>主导航</th>
+            <th>描述</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>主导航</td>
+            <td>是</td>
+            <td>主导航</td>
+            <td>
+                <a href="#" data-toggle="modal" data-target="#menu-modal">菜单管理</a>
+                <a href="#">编辑</a>
+                <a href="#">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>底部导航</td>
+            <td>否</td>
+            <td></td>
+            <td>
+                <a href="#" data-toggle="modal" data-target="#menu-modal">菜单管理</a>
+                <a href="#">编辑</a>
+                <a href="#">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade " id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="infoModaLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width:90%">
+        <div class="modal-content" style="padding: 20px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="infoModaLabel">主导航菜单管理</h4>
+            </div>
+            <form class="form-horizontal " role="form">
+                <div class="modal-body row" id="">
+                    <div class="">
+                        <ul id="myTab" class="nav nav-tabs">
+                            <li class="active"><a href="#navlist" data-toggle="tab">导航菜单</a></li>
+                            <li><a href="#addnav" data-toggle="tab">添加菜单</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade in active " id="navlist">
+                                {include file="Category:navlist"}
+                            </div>
+                            <div class="tab-pane fade" id="addnav">
+                                {include file="Category:navadd"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

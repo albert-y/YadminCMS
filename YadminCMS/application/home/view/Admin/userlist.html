@@ -1,0 +1,49 @@
+
+<ol class="breadcrumb">
+    <li><a class="btn btn-xs btn-primary ">主页</a></li>
+    <li><a class="btn btn-xs btn-primary ">用户管理</a></li>
+    <li><a class="btn btn-xs btn-primary ">所有用户</a></li>
+</ol>
+<div class="row table-responsive" style="margin-left: 2%;margin-right: 3%;">
+    <table class="table table-bordered text-center " style=" margin: 0;position:relative; width: 100%; overflow:auto;overflow-x: auto">
+        <tr>
+             <th>ID</th>
+             <th>用户名</th>
+             <th>姓名</th>
+             <th>密码</th>
+             <th>本次的登录时间</th>
+             <th>本次登录IP</th>
+             <th>用户类型</th>
+             <th>状态</th>
+             <th>录入时间</th>
+             <th>操作</th>
+        </tr>
+        {volist name='list' id='vo'}
+           <tr>
+               <td>{$vo.id}</td>
+               <td>{$vo.username}</td>
+               <td>{$vo.realname}</td>
+               <td>{$vo.password}</td>
+               <td>{$vo.logintime}</td>
+               <td>{$vo.loginip}</td>
+               <td>{$vo.usertype}</td>
+               <td>{$vo.status}</td>
+               <td>{$vo.addtime}</td>
+               <td>
+                   <a title='修改' class='btn btn-xs btn-primary editUser'>
+                       <span class='glyphicon glyphicon-edit'></span>
+                   </a>
+                   <a  title='删除' class='btn btn-xs btn-danger deleteUser'>
+                       <span  class='glyphicon glyphicon-trash'></span>
+                   </a>
+               </td>
+           </tr>
+        {/volist}
+    </table>
+    <div style="text-align: center">{$list->render()}</div>
+</div>
+<div class="result">
+
+</div>
+
+

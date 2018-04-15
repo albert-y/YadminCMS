@@ -1,0 +1,94 @@
+<nav class="navbar navbar-inverse " role="navigation" style="border: 0px;">
+<!--<nav class="navbar navbar-default " Role="navigation">-->
+	<div  style="margin-left: 120px">
+	    <div class="navbar-header">
+	        <a class="navbar-brand" href="{:URL('GetUrl/home')}">首页</a>
+	    </div>
+	     <ul class="nav navbar-nav navbar-left" id="menu-url" style="color: #FFF;">
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 仓库管理</a>
+                <ul class="dropdown-menu">
+                    <li class="menu-url"><a href="{:URL('GetUrl/addStock')}" class="url-btn">库存登记</a></li>
+                    <li><a href="{:URL('GetUrl/StockList')}" class="url-btn">库存查询</a></li>
+                    <li><a href="{:URL('GetUrl/lineList')}" class="url-btn">成品网线</a></li>
+                    <li><a href="{:URL('GetUrl/partsList')}" class="url-btn">网络配件</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 资产管理</a>
+            	<ul class="dropdown-menu ">
+                    <li><a href="{:URL('GetUrl/machine')}" class="url-btn" urldata="{:URL('GetUrl/machine')}">所有设备</a></li>
+                    <li><a href="{:URL('GetUrl/machine_notes_list')}" class="url-btn" urldata="{:URL('GetUrl/machine_notes_list')}">机房进出记录</a></li>
+                    <li><a href="{:URL('GetUrl/machine_notes_add')}" class="url-btn" urldata="{:URL('GetUrl/machine_notes_add')}">机房进出登记</a></li>
+            		<li><a href="{:URL('GetUrl/machine_up_shelves')}" class="url-btn" urldata="{:URL('GetUrl/machine_up_shelves')}">设备上架</a></li>
+                    <li><a href="#">架上设备管理</a></li>
+                    <li><a href="{:URL('GetUrl/deviceTypeList')}">设备类型</a></li>
+            	</ul>
+            </li>
+             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 资源管理</a>
+                 <ul class="dropdown-menu ">
+                     <li><a href="{:URL('GetUrl/idc_list')}" class="url-btn" urldata="{:URL('GetUrl/idc_list')}">机房管理</a></li>
+                     <li><a href="{:URL('GetUrl/cabinet')}" class="url-btn" urldata="{:URL('GetUrl/addcabinet')}">机柜管理</a></li>
+                 </ul>
+             </li>
+            <li><a href="{:URL('GetUrl/addDeviceType')}"> 添加设备类型</a></li>
+             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">技术分享</a>
+                 <ul class="dropdown-menu ">
+                     <li><a href="http://192.168.3.222/ftp/" target="_blank">软件下载FTP </a></li>
+                     <li><a href="{:URL('Share/myArticleList')}">我的分享 </a></li>
+                     <li><a href="{:URL('Share/selectServerFile')}">资料分享 </a></li>
+                     <li><a href="{:URL('Share/getServerArticleList')}">文章分享 </a></li>
+                     <li><a href="">常见问题解决方法 </a></li>
+                 </ul>
+             </li>
+             <li class="dropdown"><a tabindex="-1" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" >工作辅助</a>
+                 <ul class="dropdown-menu " aria-labelledby="droupdownMenu">
+                     <li class="dropdown-submenu"><a  href="javascript:;" >防火墙 </a>
+
+                         <ul class="dropdown-menu">
+
+                             <li><a href="http://14.17.86.166:2007" target="_blank">DDOS联通防火墙</a></li>
+                             <li><a href="http://121.12.121.2:2007" target="_blank">樟木头防火墙</a></li>
+                             <li><a href="http://121.12.120.253:16010" target="_blank">东城无防区傲盾防火墙</a></li>
+                             <li><a href="http://14.17.86.167:28099" target="_blank">联通防火墙</a></li>
+                             <li><a href="http://124.232.138.25:16010/ConfigCenter/ConfigCenter" target="_blank">长沙防火墙</a></li>
+
+
+                         </ul>
+
+                     </li>
+                     <li class="dropdown-submenu"><a  href="javascript:;" >公司后台管理</a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="http://cloud.esinidc.com/yun/index/vmlist.html" target="_blank">Zstack业务管理后台</a></li>
+                                <li><a href="http://103.24.176.188:5000/#/login" target="_blank">易信云管理后台深圳</a></li>
+                                <li><a href="http://103.24.176.190:5000/#/login" target="_blank">易信云管理后台北京</a></li>
+                                <li><a href="http://121.14.145.251:2010/tech/admin/main.asp" target="_blank">易信老管理后台</a></li>
+                                <li><a href="http://www.esinidc.com/manage.php" target="_blank">易信新管理后台</a></li>
+
+                            </ul>
+                     </li>
+                     <li class="dropdown-submenu"><a href="javascript:;">流量图 </a>
+                         <ul class="dropdown-menu">
+
+                             <li><a href="http://121.14.145.204:808/" target="_blank">无防区流量图</a></li>
+                             <li><a href="http://121.14.145.151:808/" target="_blank">有防区流量图</a></li>
+                             <li><a href="http://121.12.120.242:808" target="_blank">樟木头出口流量图</a></li>
+                             <li><a href="http://121.12.118.12:808" target="_blank">核心设备流量图</a></li>
+                             <li><a href="http://14.17.86.162:808/" target="_blank">深圳百旺信流量图</a></li>
+                             <li><a href="http://124.232.155.102:8888/cacti" target="_blank">长沙流量图</a></li>
+                         </ul>
+                     </li>
+                     <li><a href="">权限总汇</a></li>
+                     <li><a href="">第三方保障</a></li>
+                 </ul>
+             </li>
+             <li><a href="#"> 公告</a></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 其他</a>
+                <ul class="dropdown-menu ">
+                    <li><a href="{:URL('GetUrl/expressList')}">快递信息 </a></li>
+                    <li><a href="">系统使用教程 </a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+

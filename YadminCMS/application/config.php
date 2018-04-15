@@ -16,8 +16,10 @@ return [
     // +----------------------------------------------------------------------
     "app_res_root"=>"/EsinDevops/public/",
     "app_root"=>"/EsinDevops/public/index",
+    "app_public"=>"/EsinDevops/public",
     "app_public_css"=>"/EsinDevops/public/css",
     "app_public_images"=>"/EsinDevops/public/images",
+    "app_public_img"=>"/EsinDevops/public/img",
     "app_public_js"=>"/EsinDevops/public/js",
     "app_public_ajax"=>"/EsinDevops/public/ajax",
     "app_public_common_css"=>"/EsinDevops/public/common/css",
@@ -25,6 +27,9 @@ return [
     "app_public_org"=>"/EsinDevops/public/org",
     "app_public_uploadfile"=>"/EsinDevops/public/uploadfile",
     "app_public_file"=>"/EsinDevops/public/file",
+
+
+
 
     // +----------------------------------------------------------------------
     // | 应用设置

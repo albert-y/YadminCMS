@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content class="row">
+
+    <div class="row data-show">
+        <form class="form-horizontal" role="form" id="addNotes" action="">
+
+            <div class="row show-content">
+                <ol class="breadcrumb">
+                    <li>首頁</li>
+                    <li>仓库管理</li>
+                    <li>库存登记</li>
+                </ol>
+            </div>
+            <div class="row border">
+                <div class="form-group">
+                    <label for="recordTime" class="col-xs-1 control-label"><span class="required">*</span>日期</label>
+                    <div class="col-xs-2">
+                        <input type="text" name="recordTime" placeholder="点击选择时间" class="form-control" id="recordTime"
+                               data-date-format="yyyy-mm-dd">
+                    </div>
+                    <label for="recordType" class="col-xs-1 control-label"><span class="required">*</span>迁入/迁出</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="recordType" id="recordType">
+                            <option value="0">迁入</option>
+                            <option value="1">迁出</option>
+                        </select>
+                    </div>
+                    <label for="machineName" class="col-xs-1 control-label"><span class="required">*</span>物品名称</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="machineName" id="machineName" placeholder="物品名称">
+                    </div>
+                    <label for="machineFrom" class="col-xs-1 control-label"><span
+                            class="required">*</span>物品来源</label>
+                    <div class="col-xs-2">
+                        <span></span>
+                        <input type="text" class="form-control" name="machineFrom" id="machineFrom"
+                               placeholder="物品来源">
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label for="machineDestination" class="col-xs-1 control-label"><span
+                            class="required">*</span>物品去向</label>
+                    <div class="col-xs-2">
+                        <span></span>
+                        <input type="text" class="form-control" name="machineDestination" id="machineDestination"
+                               placeholder="物品去向">
+                    </div>
+                    <label for="companyName" class="col-xs-1 control-label"><span class="required">*</span>公司名称</label>
+                    <div class="col-xs-2">
+                        <span></span>
+                        <input type="text" class="form-control" name="companyName" id="companyName" placeholder="公司名称">
+                    </div>
+                    <label for="trackingnumber" class="col-xs-1 control-label"><span class="required">*</span>快递单号</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="trackingnumber" id="trackingnumber" placeholder="快递单号">
+                    </div>
+                    <label for="seriesNumber" class="col-xs-1 control-label"><span class="required">*</span>序列号</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="seriesNumber" id="seriesNumber" placeholder="序列号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="machineStandard" class="col-xs-1 control-label"><span
+                            class="required">*</span>规格</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="machineStandard" id="machineStandard"
+                               placeholder="规格">
+                    </div>
+                    <label for="machineCount" class="col-xs-1 control-label"><span class="required">*</span>数量</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="machineCount" id="machineCount" placeholder="数量">
+                    </div>
+                    <label for="toldBusinessDept" class="col-xs-1 control-label"><span
+                            class="required">*</span>通知商务</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="toldBusinessDept" name="toldBusinessDept">
+                            <option value="0">未通知</option>
+                            <option value="1">已通知</option>
+                        </select>
+                    </div>
+                    <label for="creatorid" class="col-xs-1 control-label"><span class="required">*</span>操作人</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" id="creatorid" name="creatorid">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="machineInfo" class="col-xs-1 control-label"><span
+                            class="required">*</span>品牌型号配置</label>
+                    <div class="col-xs-2">
+                        <textarea class="form-control" id="machineInfo" name="machineInfo"></textarea>
+                    </div>
+                    <label for="notes" class="col-xs-1 control-label">备注</label>
+                    <div class="col-xs-2">
+                        <textarea class="form-control" id="notes" name="notes"></textarea>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 col-xs-offset-1">
+                        <!--添加成功消息提示-->
+                        <span id="result"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 col-xs-offset-1">
+                        <button type="button" class="btn btn-primary " id="add-notes-btn">确认登记</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+        <script>
+            $('#recordTime').datetimepicker({
+                language: 'zh-CN',
+                minView: "month",
+                todayBtn: 1,
+                autoclose: 1
+            });
+        </script>
+        <script>
+            //
+            <!--获取操作人姓名-->
+            $.ajax({
+
+                url: "{:Url('Users/getUserNameList')}",
+                async: false,
+                data: {},
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    var item;
+                    $.each(data, function (i, result) {
+                        item = "<option value='" + result['id'] + "'>" + result['real_name'] + "</option>";
+                        $('#creatorid').append(item);
+                    });
+                }
+            });
+        </script>
+        <script>
+            //    //   表单数据验证
+            $('#addNotes').bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+//                公司名
+                    companyName: {
+                        selector: '#companyName',
+                        validators: {
+                            notEmpty: {
+                                message: '公司名不能为空'
+                            }
+                        }
+                    },
+//                物品名
+                    machineName: {
+                        selectot: '#machineName',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+
+                        }
+                    },
+//                序列号
+                    seriesNumber: {
+                        selector: '#seriesNumber',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            },
+                            regexp: {
+                                regexp: /^[A-Z0-9]*$/,
+                                message: '必须由大写字母或数字组成'
+                            },
+                            remote: {
+                                //ajax 验证 service result：{"valid",true or false} 向服务器发送当前input name值，获得一个json数据
+                                url: "{:url('Machine_Manage/validateDeviceSN')}",//验证地址
+                                message: "序列号已经存在",//提示消息
+                                type: "POST"//提交方式
+                            }
+
+                        }
+                    },
+                    //      IP
+                    IP: {
+                        selector: '#IP',
+                        validators: {
+                            regexp: {
+                                regexp: /^((25[0-5]|2[0-4]\\d|[1]{1}\\d{1}\\d{1}|[1-9]{1}\\d{1}|\\d{1})($|(?!\\.$)\\.)){4}$/,
+                                message: '请填写正确的'
+                            },
+                            remote: {
+                                //ajax 验证 service result：{"valid",true or false} 向服务器发送当前input name值，获得一个json数据
+                                url: "{:url('Machine_Manage/validateDeviceSN')}",//验证地址
+                                message: "序列号已经存在",//提示消息
+                                type: "POST"//提交方式
+                            }
+
+                        }
+                    },
+//                操作人
+                    creatorid: {
+                        selector: '#creatorid',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+//                规格
+                    machineStandard: {
+                        selector: '#machineStandard',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+//                数量
+                    machineCount: {
+                        selector: '#machineCount',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]*$/,
+                                message: "只能是数字"
+                            }
+                        }
+                    },
+//                通知商务
+                    toldBusinessDept: {
+                        selector: '#toldBusinessDept',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    },
+//                物品信息
+                    machineInfo: {
+                        selector: '#machineInfo',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            },
+                            stringCase: {
+                                message: '英文大写',
+                                case: 'upper'
+                            }
+                        }
+                    },
+//                日期
+                    recordTime: {
+                        selector: '#recordTime',
+                        validators: {
+                            notEmpty: {
+                                message: '不能为空'
+                            }
+                        }
+                    }
+                }
+            });
+            //    //
+            <!--提交硬件登记信息-->
+            $('#add-notes-btn').click(function () {
+                $('#addNotes').bootstrapValidator('validate');
+                $bv = $('#addNotes').data("bootstrapValidator").isValid();
+//            alert($bv);
+                if ($bv) {
+                    var addList = $('#addNotes').serialize();
+                    $.ajax({
+                        async: false,
+                        url: "{:Url('Machine_Manage/machineNotesAdd')}",
+                        data: addList,
+                        type: "POST",
+                        success: function (data) {
+                            $('#result').append(data['message']).css('color', 'green');
+//                    for (var i=0;i<=data.length;++i){
+//                      $('#result').append(data[i]).css('color','green');
+//                    }
+//                    alert(data).toSource();
+                        }
+                    });
+                } else {
+                    alert('标注*为必填选项，提交前请填写完整');
+                }
+            });
+            //    $('#add-notes-btn').click(function () {
+            //        alert("dhaksjhdaskjhd");
+            //    });
+        </script>
+    </div>
+</content>
+<footer>
+    {include file="Common:footer"/}
+</footer>
+</body>
+</html>

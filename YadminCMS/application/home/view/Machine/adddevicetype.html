@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"/}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content class="row">
+    <div class="row">
+        <form class="form-horizontal" role="form" id="devicetypeform">
+            <div class="row show-content">
+                <ol class="breadcrumb">
+                    <li>首頁</li>
+                    <li>仓库管理</li>
+                    <li>库存登记</li>
+                </ol>
+            </div>
+            <div class="row border">
+                <div class="form-group">
+                    <div class="col-xs-1 col-xs-offset-1">
+                        <a href="{:URL('GetUrl/deviceTypeList')}" type="button" class="btn btn-sm btn-danger" id="backdevicelist"><span class="glyphicon glyphicon-share-alt"></span>返回设备类型列表</a>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label for="devicetype" class="col-xs-1 control-label"><span class="required">*</span>设备类型名</label>
+                    <div class="col-xs-3">
+                        <input type="text" name="devicetype" placeholder="设备类型名" class="form-control" id="devicetype">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 col-xs-offset-1">
+                        <!--添加成功消息提示-->
+                        <span id="result"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 col-xs-offset-1">
+                        <button type="button" class="btn btn-primary " id="add-deviceType-btn">确认添加</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</content>
+<footer>
+    {include file="Common:footer"/}
+</footer>
+</body>
+<script>
+    //    //   表单数据验证
+    $('#devicetypeform').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            //设备类型
+            devicetype: {
+                selector: '#devicetype',
+                validators: {
+                    notEmpty: {
+                        message: '设备名称不能为空'
+                    }
+                }
+            }
+        }
+    });
+    <!--提交硬件登记信息-->
+    $('#add-deviceType-btn').click(function () {
+        $('#devicetypeform').bootstrapValidator('validate');
+        $bv = $('#devicetypeform').data("bootstrapValidator").isValid();
+        if ($bv) {
+            var addList = $('#devicetypeform').serialize();
+            $.ajax({
+                async: false,
+                url: "{:Url('Machine_Manage/addDeviceType')}",
+                data: addList,
+                type: "POST",
+                success: function (data) {
+                    $('#result').append(data['message']).css('color', 'green');
+                }
+            });
+        } else {
+            alert('标注*为必填选项，提交前请填写完整');
+        }
+    });
+</script>
+</html>

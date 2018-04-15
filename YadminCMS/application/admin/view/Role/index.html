@@ -1,0 +1,18 @@
+<div class="col-xs-12">
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#auth" data-toggle="tab">角色管理</a></li>
+    <li><a href="#addrole" data-toggle="tab">添加角色</a></li>
+
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active " id="auth">
+        {include file="Role:list"}
+    </div>
+    <div class="tab-pane fade" id="addrole">
+        {include file="Role:add"}
+    </div>
+    <div class="tab-pane fade" id="set-auth">
+        {include file="Role:set"}
+    </div>
+</div>
+</div>

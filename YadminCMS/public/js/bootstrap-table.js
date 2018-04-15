@@ -1102,7 +1102,7 @@
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.columns),
                 // ' <span class="caret"></span>',
                 '</button>',
-                '<ul class="dropdown-menu" role="menu">');
+                '<ul class="dropdown-menu" Role="menu">');
 
             $.each(this.columns, function (i, column) {
                 if (column.radio || column.checkbox) {
@@ -1116,7 +1116,7 @@
                 var checked = column.visible ? ' checked="checked"' : '';
 
                 if (column.switchable) {
-                    html.push(sprintf('<li role="menuitem">' +
+                    html.push(sprintf('<li Role="menuitem">' +
                         '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +
                         '</li>', column.field, i, checked, column.title));
                     switchableCount++;
@@ -1370,7 +1370,7 @@
                     '</span>',
                     ' <span class="caret"></span>',
                     '</button>',
-                    '<ul class="dropdown-menu" role="menu">'
+                    '<ul class="dropdown-menu" Role="menu">'
                 ];
 
             if (typeof this.options.pageList === 'string') {
@@ -1392,7 +1392,7 @@
                     } else {
                         active = page === that.options.pageSize ? ' class="active"' : '';
                     }
-                    pageNumber.push(sprintf('<li role="menuitem"%s><a href="#">%s</a></li>', active, page));
+                    pageNumber.push(sprintf('<li Role="menuitem"%s><a href="#">%s</a></li>', active, page));
                 }
             });
             pageNumber.push('</ul></span>');

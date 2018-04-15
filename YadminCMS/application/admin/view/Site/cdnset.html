@@ -1,1 +1,28 @@
-<div>cdn</div>
+<div style="margin-top: 20px">
+    <form class="form-horizontal col-xs-12" role="form">
+        <div class="form-group">
+            <label  class="col-xs-2 control-label">静态资源CDN地址</label>
+            <div class="col-xs-6">
+                <input type="text" class="form-control" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6 col-xs-offset-2">
+                不能以/结尾；设置这个地址后，请将YAdminCMS下的静态资源文件放在其下面；
+                YAdminCMS下的静态资源文件大致包含以下(如果你自定义后，请自行增加)：
+                themes/admin_simplebootx/public/assets
+                static
+                themes/simplebootx/public/assets
+                例如未设置cdn前：jquery的访问地址是/static/js/jquery.js,
+                设置cdn是后它的访问地址就是：静态资源cdn地址/static/js/jquery.js
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-6">
+                <button type="submit" class="btn btn-primary" style="color: #fff;background-color: #2C3E50;border-color: #2C3E50;">保存</button>
+            </div>
+        </div>
+    </form>
+</div>

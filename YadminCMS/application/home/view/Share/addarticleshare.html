@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+    <div class="row">
+        <form class="form-horizontal" role="form" enctype="multipart/form-data" action="" method="" id="articleform">
+        <div class="row show-content "  >
+            <ol class="breadcrumb">
+                <li>首頁</li>
+                <li>技术分享</li>
+                <li>分享我的技术</li>
+            </ol>
+        </div>>
+            <div class="row border" style="">
+                    <div class="form-group row">
+                        <div  class="col-xs-12" ><span class=" glyphicon glyphicon-pencil" style="font-size: 22px">写文章</span><h6>好咖啡要和朋友一起品尝，好想法也可以和朋友一起分享。</h6></div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class=" col-xs-2">
+                            <select name="classify" class="form-control">
+                                <option value="">请选择</option>
+                                <option value="服务器">服务器</option>
+                                <option value="网络">网络</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class=" col-xs-10">
+                            <input type="text" class="form-control" name="title" placeholder="输入文章标题">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <textarea name="content" class="form-control" id="content"></textarea>
+                            <script type="text/javascript">
+                                CKEDITOR.replace('content');//content 为textarea的name属性值
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-1 input-group">
+                            <!--添加成功消息提示-->
+                            <span class="hint"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-primary" id="upload-btn">确认</button>
+
+                            <a href="{:URL('Share/getServerArticleList')}" type="reset" class="btn btn-default">返回</a>
+                        </div>
+                    </div>
+            </div>
+        </form>
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+<script>
+
+    function FormValidator(obj) {
+        $(obj).bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                classify: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择分类'
+                        }
+                    }
+                },
+                title: {
+                    validators: {
+                        notEmpty: {
+                            message: '请填写标题'
+                        }
+                    }
+                },
+                content: {
+                    validators: {
+                        notEmpty: {
+                            message: '请填写内容'
+                        }
+
+                    }
+                }
+            }
+        });
+    }
+    //处理CKEDITOR的值，后台或得CKeditor提交的数据必须这么做
+    function CKupdate() {
+        for (instance in CKEDITOR.instances)
+        CKEDITOR.instances[instance].updateElement();
+    }
+    $('#upload-btn').click(function () {
+        var obj="#articleform";
+        FormValidator(obj);
+        $(obj).bootstrapValidator('validate');
+        $bv = $(obj).data("bootstrapValidator").isValid();
+
+        CKupdate();//在提交表单前需要做以上处理
+
+        if ($bv) {
+            var data = $(obj).serialize();
+           
+            $.ajax({
+                url: "{:Url('Share/articleShare')}",
+                data: data,
+                type: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if(data['status']=0){
+                        $('.hint').empty().append(data['message']).css('color', 'red');
+                    }else{
+                        $('.hint').empty().append(data['message']).css('color', 'green');
+                    }
+
+                }
+            });
+
+
+
+        } else {
+            alert('标注*为必填选项，提交前请填写完整');
+        }
+    });
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

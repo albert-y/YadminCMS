@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+    <div class="row data-show">
+        <div class="row show-content">
+            <ol class="breadcrumb">
+                <li>首頁</li>
+                <li>机房管理</li>
+                <li>机房列表</li>
+            </ol>
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="btn_add" class="btn btn-default" data-toggle="modal" data-target="#idc-modal">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增机房
+                </button>
+                &nbsp;
+            </div>
+            <table class="text-center" id="idc-list" data-toggle="table"></table>
+        </div>
+        <div class="modal fade" id="idc-modal" tabindex="-1" role="dialog" aria-labelledby="idcModaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="idcModaLable">新增机房</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addIDC">
+                            <div class="row" style="margin: 0px 10px 0 10px;padding-top:10px;">
+                                <div class="form-group">
+                                    <label for="idcName" class="control-label"><span
+                                            class="required">*</span>机房名称</label>
+                                    <input type="text" class="form-control" name="idcname" id="idcName"
+                                           placeholder="示例：深圳百旺信云数据机房一期">
+                                </div>
+                                <div class="form-group">
+                                        <!--添加消息提示-->
+                                        <span id="result"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary btn-xs" id="add-idc">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+</body>
+<!--table显示所有机房信息-->
+<script type="text/javascript">
+
+    //初始化bootstrap-table的内容
+    function InitMainTable() {
+        //记录页面bootstrap-table全局变量$tabel,方便使用
+        $('#idc-list').bootstrapTable('destroy');
+        $('#idc-list').bootstrapTable({
+            method: "POST",
+            url: "{:Url('IDC_Manage/getIdcList')}",
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            pageSize: 15,  //每页显示的记录数
+            pageNumber: 1, //当前第几页
+            pageList: [5, 10, 15, 20, 25],  //记录数可选列表
+            search: true,  //是否启用查询
+            searchAlign: 'left',//设置搜索框位置
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            paginationDetailHAlign: 'right',
+            paginationHAlign: 'left',
+            sidePagination: "client", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            checkboxHeader: true,
+            toolbar: '#toolbar',
+            showPaginationSwitch: true,
+            sortOrder: 'desc',
+            showToggle: true,
+            queryParamsType: "undefined",
+            columns: [{
+                checkbox: 'true'
+            },{
+                field:'id',
+                title: 'ID'
+            }, {
+                field: 'idcname',//这里的名字就是json数据里的键名
+                title: '名称'
+            }, {
+                field: 'operation',
+                title: '管理',
+                formatter: operateFormatter
+            }]
+        });
+        function operateFormatter(value, row, index) {
+            return [
+                '<button  type="button" title="修改" class="btn btn-xs btn-primary edit" ><span class="glyphicon glyphicon-edit"></span></button>&nbsp;',
+                '<button  type="button" title="删除" class="btn btn-xs btn-danger delete" ><span class="glyphicon glyphicon-trash"></span></button>&nbsp;',
+                '<button  type="button" title="详情" class="btn btn-xs btn-info detailed" ><span class="glyphicon glyphicon-eye-open"></span></button>'
+            ].join('');
+        }
+
+        $.ajax({
+            url: "{:Url('IDC_Manage/getIdcList')}",//这里指向的就不再是页面了，而是一个方法。
+            async: false,
+            data: {},
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                $('#idc-list').bootstrapTable('load', data);
+            }
+        });
+    }
+    $(document).ready(function () {
+        InitMainTable();
+    });
+</script>
+
+<!--添加机房-->
+<script>
+    $("#add-idc").click(function () {
+        var addData=$("#addIDC").serialize();
+        $.ajax({
+            url: "{:Url('IDC_Manage/idcAdd')}",//这里指向的就不再是页面了，而是一个方法。
+            async: false,
+            data: addData,
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                if(data['status']=='0'){
+                    $('#result').empty().append(data['massage']).css('color', 'red');
+                }else if (data['status']=='1'){
+                    $('#result').empty().append(data['massage']).css('color', 'green');
+                }
+            }
+        });
+       // alert();
+    });
+</script>
+</html>
+
+
+

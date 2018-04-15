@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+    <div class="row">
+            <div class="row show-content "  >
+                <ol class="breadcrumb">
+                    <li>首頁</li>
+                    <li>权限管理</li>
+                    <li>添加权限</li>
+                </ol>
+            </div>>
+            <div class=" border form-horizontal">
+                <div class="form-group ">
+                    <label for="username" class="col-xs-1 control-label">选择用户</label>
+                    <div class="form-group col-xs-5">
+                        <select id="username" name="classify" class="form-control">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label for="modelname" class="col-xs-1 control-label">选择模块</label>
+                    <div class="form-group col-xs-5">
+                        <select id="modelname" name="classify" class="form-control">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label for="modelname" class="col-xs-1 control-label">操作权限</label>
+                    <div class="form-group">
+                        <div class="col-xs-offset-1 col-xs-10">
+                            <div class="checkbox" id="operation"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="form-group">
+                        <div class="col-xs-offset-1 col-xs-2">
+                            <button type="submit" class="btn btn-primary form-control">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+<script>
+    $.ajax({
+
+        url: "{:Url('Users/getUserNameList')}",
+        async: false,
+        data: {},
+        type: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            var item;
+            $.each(data, function (i, result) {
+                item = "<option value='" + result['id'] + "'>" + result['real_name'] + "</option>";
+                $('#username').append(item);
+            });
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "{:Url('Auth/getModelNameList')}",
+            data: '',
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                var item;
+                $.each(data, function (i, result) {
+                    item = "<option value='" + result['auth_id'] + "'>" + result['auth_name'] + "</option>";                    $('#modelname').append(item);
+                });
+            }
+        });
+    });
+    $('#modelname').change(function () {
+        var data = {modelnum: $(this).val()};
+        var appendaddr="#operation";
+        if(data['modelnum']==0){
+            $(appendaddr).empty().append('<span style="color: #ff2222">请选择模块</span>');
+        }else {
+
+            getModelChildren(data,appendaddr);
+        }
+
+    });
+    function getModelChildren(data,appendaddr) {
+        $.ajax({
+            url: "{:Url('Auth/getModelChildren')}",
+            data: data,
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                $(appendaddr).empty().append("<label style='margin-right: 20px'><input type='checkbox' value=''>All</label>");
+                var item;
+                $.each(data, function (i, result) {
+                    item = "<label style='margin-right: 20px'><input type='checkbox' value='"+result['auth_id']+"'>"+result['auth_name']+"</label>";
+                       $(appendaddr).append(item);
+                });
+            }
+        });
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

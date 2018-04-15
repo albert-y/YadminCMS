@@ -1,0 +1,42 @@
+body{
+    width: 100%;
+    background-color: white;
+    color: #2C3E50;
+}
+*{
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+a:hover{
+    text-decoration: none;
+}
+a:link{
+    text-decoration: none;
+}
+.admin-foot{
+    background-color: #262626;
+    height: 45px;
+    border-top: 1px solid #0f0f0f;
+    color: #FFF;
+    position: fixed;
+    bottom: 0;
+    font-size: 10px;
+}
+.user-info >.thumbnail{
+    border: 0;
+    background: none;
+}
+.breadcrumb{
+    background-color: #FFffff;
+}
+
+table{font-size: 12px;}
+th{text-align: center;}
+.pagination{font-size: 12px}
+
+
+
+.container-fluid {
+    padding-right: 0px;
+}

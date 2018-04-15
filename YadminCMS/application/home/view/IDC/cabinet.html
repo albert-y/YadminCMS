@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+    <div class="row data-show">
+        <div class="row show-content">
+            <ol class="breadcrumb">
+                <li>首頁</li>
+                <li>机房管理</li>
+                <li>机柜列表</li>
+            </ol>
+            <div id="toolbar" class="btn-group">
+                <button type="button" id="btn_add" class="btn btn-default" data-toggle="modal" data-target="#idc-modal">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增机柜
+                </button>
+                <button type="button" id="btn_add_some" class="btn btn-default" data-toggle="modal" data-target="#idc-batch-modal">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>批量添加机柜
+                </button>
+                &nbsp;
+            </div>
+            <table class="text-center" id="cabinet-list" data-toggle="table"></table>
+        </div>
+        <div class="modal fade" id="idc-modal" tabindex="-1" role="dialog" aria-labelledby="idcModaLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="idcModaLable">添加机柜</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addCabinet">
+                            <div class="row" style="margin: 0px 10px 0 10px;padding-top:10px;">
+                                <div class="form-group">
+                                    <label for="idc-name" class="control-label"><span
+                                            class="required">*</span>所属机房</label>
+                                    <select class="" name="idcname" id="idc-name">
+                                            <option value="">请选择</option>
+                                    </select>
+                                    <label for="cabinet-name" class="control-label"><span
+                                            class="required">*</span>机柜名称</label>
+                                    <input type="text" name="cabinetname" placeholder="示例：BWX-A01" id="cabinet-name">
+
+                                </div>
+                                <div class="form-group">
+                                        <!--添加成功消息提示-->
+                                        <span id="result"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary btn-xs" id="add-cabinet">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="idc-batch-modal" tabindex="-1" role="dialog" aria-labelledby="idcBatchModaLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="idcBatchModaLable">批量添加机柜</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="batchAddCabinet">
+                            <div class="row" style="margin: 0px 10px 0 10px;padding-top:10px;">
+                                <div class="form-group">
+                                    <label for="idc-batch" class="control-label"><span
+                                            class="required">*</span>所属机房</label>
+                                    <select class="" name="idcbatch" id="idc-batch">
+                                        <option value="">请选择</option>
+                                    </select>
+                                    <label for="cabinet-name-start" class="control-label"><span
+                                            class="required">*</span>机柜开始位置</label>
+                                    <select class="" name="cabinet-name-start" id="cabinet-name-start">
+                                        <option value="">请选择</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+
+                                        <option value="F">F</option>
+                                        <option value="G">G</option>
+                                        <option value="H">H</option>
+                                        <option value="I">I</option>
+                                        <option value="J">J</option>
+
+                                        <option value="K">K</option>
+                                        <option value="L">L</option>
+                                        <option value="M">M</option>
+                                        <option value="N">N</option>
+                                        <option value="O">O</option>
+
+                                        <option value="P">P</option>
+                                        <option value="Q">Q</option>
+                                        <option value="R">R</option>
+                                        <option value="S">S</option>
+                                        <option value="T">T</option>
+
+                                        <option value="U">U</option>
+                                        <option value="V">V</option>
+                                        <option value="W">W</option>
+                                        <option value="X">X</option>
+                                        <option value="Y">Y</option>
+
+                                        <option value="Z">Z</option>
+                                    </select>
+                                    <label for="cabinet-name-end" class="control-label"><span
+                                            class="required">*</span>机柜结束位置</label>
+                                    <select class="" name="cabinet-name-end" id="cabinet-name-end">
+                                        <option value="">请选择</option>
+
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+
+                                        <option value="F">F</option>
+                                        <option value="G">G</option>
+                                        <option value="H">H</option>
+                                        <option value="I">I</option>
+                                        <option value="J">J</option>
+
+                                        <option value="K">K</option>
+                                        <option value="L">L</option>
+                                        <option value="M">M</option>
+                                        <option value="N">N</option>
+                                        <option value="O">O</option>
+
+                                        <option value="P">P</option>
+                                        <option value="Q">Q</option>
+                                        <option value="R">R</option>
+                                        <option value="S">S</option>
+                                        <option value="T">T</option>
+
+                                        <option value="U">U</option>
+                                        <option value="V">V</option>
+                                        <option value="W">W</option>
+                                        <option value="X">X</option>
+                                        <option value="Y">Y</option>
+
+                                        <option value="Z">Z</option>
+                                    </select>
+                                    <label for="cabinet-count" class="control-label"><span
+                                            class="required">*</span>每列数量</label>
+                                    <select class="" name="cabinet-count" id="cabinet-count">
+                                        <option value="">请选择</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                    </select>
+
+
+                                </div>
+                                <div class="form-group">
+                                    <!--添加成功消息提示-->
+                                    <span id="res-manage"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary btn-xs" id="batch-add-cabinet">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+</body>
+<!--获取机房信息-->
+<script>
+    //<!--获取机房名称-->
+    $.ajax({
+        url: "{:Url('IDC_Manage/getIdcList')}",
+        async: false,
+        data: {},
+        type: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            var item,item2;
+            $.each(data, function (i, result) {
+                item = "<option value='" + result['id'] + "'>" + result['idcname'] + "</option>";
+                item2 = "<option value='" + result['id'] + "'>" + result['idcname'] + "</option>";
+                $('#idc-name').append(item);
+                $('#idc-batch').append(item2);
+            });
+        }
+    });
+</script>
+
+
+<!--获取所有机柜信息-->
+<script type="text/javascript">
+
+    //初始化bootstrap-table的内容
+    function InitMainTable() {
+        //记录页面bootstrap-table全局变量$tabel,方便使用
+        $('#cabinet-list').bootstrapTable('destroy');
+        $('#cabinet-list').bootstrapTable({
+            method: "POST",
+            url: "{:Url('IDC_Manage/getCabinetList')}",
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            pageSize: 15,  //每页显示的记录数
+            pageNumber: 1, //当前第几页
+            pageList: [5, 10, 15, 20, 25],  //记录数可选列表
+            search: true,  //是否启用查询
+            searchAlign: 'right',//设置搜索框位置
+            showColumns: true,  //显示下拉框勾选要显示的列
+            showRefresh: true,  //显示刷新按钮
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            paginationDetailHAlign: 'right',
+            paginationHAlign: 'left',
+            sidePagination: "client", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            checkboxHeader: true,
+            toolbar: '#toolbar',
+            showPaginationSwitch: true,
+            sortOrder: 'desc',
+            showToggle: true,
+            queryParamsType: "undefined",
+            columns: [{
+                checkbox: 'true'
+            },{
+                field: 'cabinetname',//这里的名字就是json数据里的键名
+                title: '编号'
+            },{
+                field: 'idcname',//这里的名字就是json数据里的键名
+                title: '所属机房'
+            },{
+                field: 'rack_all',//这里的名字就是json数据里的键名
+                title: '总机位'
+            },{
+                field: 'rack_sy',//这里的名字就是json数据里的键名
+                title: '可用机位数'
+            },{
+                field: 'rack_yy',//这里的名字就是json数据里的键名
+                title: '已用机位'
+            },{
+                field: 'operation',
+                title: '管理',
+                formatter: operateFormatter
+            }]
+        });
+        function operateFormatter(value, row, index) {
+            return [
+                '<button  type="button" title="修改" class="btn btn-xs btn-primary edit" ><span class="glyphicon glyphicon-edit"></span></button>&nbsp;',
+                '<button  type="button" title="删除" class="btn btn-xs btn-danger delete" ><span class="glyphicon glyphicon-trash"></span></button>&nbsp;',
+                '<button  type="button" title="详情" class="btn btn-xs btn-info detailed" ><span class="glyphicon glyphicon-eye-open"></span></button>'
+            ].join('');
+        }
+
+        $.ajax({
+            url: "{:Url('IDC_Manage/getCabinetList')}",//这里指向的就不再是页面了，而是一个方法。
+            async: false,
+            data: {},
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                $("#cabinet-list").bootstrapTable('load', data);
+            }
+        });
+    }
+    $(document).ready(function () {
+        InitMainTable();
+    });
+</script>
+
+<!--机柜添加-->
+<script>
+    $("#add-cabinet").click(function () {
+        var addData=$("#addCabinet").serialize();
+        $.ajax({
+            url: "{:Url('IDC_Manage/cabinetAdd')}",//这里指向的就不再是页面了，而是一个方法。
+            async: false,
+            data: addData,
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                if(data['status']=='0'){
+                    $('#result').empty().append(data['massage']).css('color', 'red');
+                }else if (data['status']=='1'){
+                    $('#result').empty().append(data['massage']).css('color', 'green');
+                }
+            }
+        });
+        // alert();
+    });
+    $("#batch-add-cabinet").click(function () {
+        var addData=$("#batchAddCabinet").serialize();
+        $.ajax({
+            url: "{:Url('IDC_Manage/cabinetBatchAdd')}",//这里指向的就不再是页面了，而是一个方法。
+            async: false,
+            data: addData,
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                if(data['status']=='0'){
+                    $('#res-manage').empty().append(data['massage']).css('color', 'red');
+                }else if (data['status']=='1'){
+                    $('#res-manage').empty().append(data['massage']).css('color', 'green');
+                }
+            }
+        });
+        // alert();
+    });
+</script>
+</html>

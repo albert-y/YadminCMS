@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="Common:head"}
+
+<style>
+    a {color: #23262E;}
+    .tab-content a:hover{color: orangered;text-decoration: none}
+</style>
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+
+    <div class="row data-show">
+        <div class="row show-content">
+
+                <ol class="row breadcrumb">
+                    <li>首頁</li>
+                    <li>技术分享</li>
+                    <li>文章分享</li>
+                    <li>正文</li>
+                </ol>
+
+                <div class="row" >
+                        <div class="row" style="text-align: center"><h3>{$list.title}</h3></div>
+                        <div class="row" style="text-align: center;color: #9d9d9d;font-size: 12px;">
+                            发表时间：{$list.operatetime}&nbsp;&nbsp;&nbsp;&nbsp;
+                            作者：{$list.operater}
+                            <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-pencil"></span>编辑</a>&nbsp;&nbsp;&nbsp;
+
+                            分类：{$list.classify}
+                        </div><hr>
+                        <div class="row" style="text-align: left;padding-top: 20px">
+                            <div class="col-xs-12">
+                                {$list.content}
+                            </div>
+                        </div><hr>
+                        <div class="row" style="padding-top: 20px">
+                            <div class="col-xs-12">
+                                <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-eye-open"></span>浏览61次</a>&nbsp;&nbsp;&nbsp;
+                                <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-comment"></span>1条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="" style="color: #9d9d9d;font-size: 12px;"><span class="glyphicon  glyphicon-thumbs-up"></span>28赞</a>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row" style="text-align: center">
+                            <button class="btn btn-primary">推荐</button>
+                            <button class="btn btn-default">收藏</button>
+                        </div>
+                </div>
+
+            <hr>
+            <div class=" row container" style="margin-top: 20px">
+
+                <div class="col-xs-12" style="padding: 0px;">
+                    <div style="padding:2px 0px 2px 5px;width: 120px;color: #fff;background-color: #428bca;border-color: #357ebd;margin-left: 0px;text-align: center;">
+                        <h5 style="color: #FFF">评论(0)</h5>
+                    </div>
+                    <hr style="margin-top: 0px;">
+                </div>
+
+
+                <div class="col-xs-12" style="margin-top: 10px">
+                    </div>
+                    <hr>
+                    <div class="col-xs-12" style="height: 100px;background:#f0f0f0;margin-bottom: 10px;text-align: center;padding-top: 30px">
+                        <img class="img-circle" src="{$Think.config.app_public_images}/head.png" width="50px" height="50px">
+                        &nbsp;&nbsp;&nbsp;目前您尚未登录，请<a href="" style="color: red">登录</a>后进行评论
+                    </div>
+                    <div class="col-xs-12" style="height: 50px;background: #f0f0f0;padding-top: 10px">
+                        评论功能暂时尚未开放
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+</body>
+</html>

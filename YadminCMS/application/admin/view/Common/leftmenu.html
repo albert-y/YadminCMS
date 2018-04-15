@@ -1,4 +1,4 @@
-<div class="adminleft" style=" margin-bottom:0px;background-color: #f2f2f2;border:2px solid #e7e7e7;color: #2C3E50;" >
+<div class="adminleft" style=" " >
     <div class="panel-group " id="accordion" >
         <div class="panel">
             <div class="panel-heading" style="border: 0px;background-color: #fafafa">
@@ -7,10 +7,10 @@
                         <span class="glyphicon glyphicon-Home" ></span>&nbsp;
                     </a>
                     <a href="" title="资源管理" class="btn btn-xs btn-primary" style="color: #FFF">
-                        <span class="glyphicon glyphicon-file"></span>&nbsp;
+                        <span class="fa fa-sun-o"></span>&nbsp;
                     </a>
                     <a href="" title="回收站" class="btn btn-xs btn-danger " style="color: #FFF">
-                        <span class="glyphicon glyphicon-trash" ></span>&nbsp;
+                        <span class="fa fa-recycle" ></span>&nbsp;
                     </a>
                 </h4>
             </div>
@@ -20,23 +20,24 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion"
                        href="#collapseOne">
-                        <span class="glyphicon glyphicon glyphicon-cog"></span>&nbsp;设置
-                        <span class="glyphicon glyphicon-chevron-right" style="float: right"></span>
+
+                        <span class="fa fa-gears"></span>&nbsp;设置
+                        <span class="fa fa-angle-right" style="float: right"></span>
                     </a>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse ">
                 <div class="panel-body" style="">
                     <ul class="list-group admin-list-group">
-                        <li class="list-group-item"><a href="#webinfo" data-toggle="tab">网站信息</a></li>
-                        <li class="list-group-item"><a href="#userinfo" data-toggle="tab">模板管理</a></li>
-                        <li class="list-group-item"><a href="#">导航管理</a></li>
-                        <li class="list-group-item"><a href="#">幻灯片管理</a></li>
-                        <li class="list-group-item"><a href="#">友情链接</a></li>
-                        <li class="list-group-item"><a href="#">URL美化</a></li>
-                        <li class="list-group-item"><a href="#">上传设置</a></li>
-                        <li class="list-group-item"><a href="#">文件存储</a></li>
-                        <li class="list-group-item"><a href="javascript:void(0)" onclick="showContent();">用户操作管理</a></li>
+                        <li class="list-group-item"><a href="#" url="{:Url('Site/index')}"><i class="fa fa-caret-right"></i>&nbsp;网站信息</a></li>
+                        <li class="list-group-item"><a href="#" url="{:Url('Theme/index')}"><i class="fa fa-caret-right"></i>&nbsp;模板管理</a></li>
+                        <li class="list-group-item"><a href="#" url="{:Url('Category/index')}"><i class="fa fa-caret-right"></i>&nbsp;导航管理</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;幻灯片管理</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;友情链接</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;URL美化</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;上传设置</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;文件存储</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;用户操作管理</a></li>
                     </ul>
                 </div>
             </div>
@@ -44,8 +45,8 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion"
                        href="#collapseTwo">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;用户管理
-                        <span class="glyphicon glyphicon-chevron-right" style="float: right"></span>
+                        <span class="fa fa-group"></span>&nbsp;用户管理
+                        <span class="fa fa-angle-right" style="float: right"></span>
                         <!--点击<span class="glyphicon glyphicon-chevron-right"style="float: right;font: 12px;"></span>-->
                     </a>
                 </h4>
@@ -53,10 +54,51 @@
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body" >
                     <ul class="list-group admin-list-group">
-                        <li class="list-group-item"><a href="#" data-toggle="tab">角色管理</a></li>
-                        <li class="list-group-item"><a href="#" data-toggle="tab">管理员</a></li>
-                        <li class="list-group-item"><a href="#" data-toggle="tab">本站用户</a></li>
-                        <li class="list-group-item"><a href="#" data-toggle="tab">第三方用户</a></li>
+                        <li class="list-group-item"><a href="#rabc"  url="{:Url('Role/index')}"><i class="fa fa-caret-right"></i>&nbsp;角色管理</a></li>
+                        <li class="list-group-item"><a href="#admin" url="{:Url('Admin/index')}"><i class="fa fa-caret-right"></i>&nbsp;管理员</a></li>
+                        <li class="list-group-item"><a href="#users" url="{:Url('Users/index')}"><i class="fa fa-caret-right"></i>&nbsp;本站用户</a></li>
+                        <li class="list-group-item"><a href="#oauth" url="{:Url('OAuth/index')}"><i class="fa fa-caret-right"></i>&nbsp;第三方用户</a></li>
+                    </ul>
+                </div>
+            </div>
+             <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseThree">
+                        <span class="fa fa-cloud"></span>&nbsp;插件中心
+                        <span class="fa fa-angle-right" style="float: right"></span>
+                        <!--点击<span class="glyphicon glyphicon-chevron-right"style="float: right;font: 12px;"></span>-->
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="list-group admin-list-group">
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;钩子管理</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;插件列表</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;演示插件</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;小程序管理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseFour">
+                        <span class="fa fa-location-arrow"></span>&nbsp;权限管理
+                        <span class="fa fa-angle-right" style="float: right"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="list-group admin-list-group">
+                        <li class="list-group-item">
+                            <a href="#" url="{:Url('Auth/index')}">
+                                <i class="fa fa-caret-right"></i>&nbsp;
+                                添加权限信息
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -64,38 +106,18 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion"
                        href="#collapseFive">
-                        <span class="glyphicon glyphicon-cloud"></span>&nbsp;插件中心
-                        <span class="glyphicon glyphicon-chevron-right" style="float: right"></span>
-                        <!--点击<span class="glyphicon glyphicon-chevron-right"style="float: right;font: 12px;"></span>-->
+                        <span class="fa fa-th"></span>&nbsp;门户管理
+                        <span class="fa fa-angle-right" style="float: right"></span>
                     </a>
                 </h4>
             </div>
             <div id="collapseFive" class="panel-collapse collapse">
                 <div class="panel-body">
                     <ul class="list-group admin-list-group">
-                        <li class="list-group-item"><a href="#">钩子管理</a></li>
-                        <li class="list-group-item"><a href="#">插件列表</a></li>
-                        <li class="list-group-item"><a href="#">演示插件</a></li>
-                        <li class="list-group-item"><a href="#">小程序管理</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapseThree">
-                        <span class="glyphicon glyphicon-th"></span>&nbsp;门户管理
-                        <span class="glyphicon glyphicon-chevron-right" style="float: right"></span>
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <ul class="list-group admin-list-group">
-                        <li class="list-group-item"><a href="#">文章管理</a></li>
-                        <li class="list-group-item"><a href="#">分类管理</a></li>
-                        <li class="list-group-item"><a href="#">页面管理</a></li>
-                        <li class="list-group-item"><a href="#">文章标签</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;文章管理</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;分类管理</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;页面管理</a></li>
+                        <li class="list-group-item"><a href="#"><i class="fa fa-caret-right"></i>&nbsp;文章标签</a></li>
                     </ul>
                 </div>
             </div>

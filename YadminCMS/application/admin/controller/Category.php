@@ -6,17 +6,12 @@
  * Time: 20:17
  */
 
-namespace app\home\controller;
+namespace app\admin\controller;
 
-
-class Category
+class Category extends AdminBase
 {
-    /*
-     *前端导航菜单
-     * */
-
     public function index(){
-
+        return view('index');
     }
 
 }

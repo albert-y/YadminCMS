@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+{include file="Common:head"}
+<style>
+    a {color: #23262E;}
+    .tab-content a:hover{color: orangered;text-decoration: none}
+</style>
+<body>
+<header>
+    {include file="Common:header"/}
+    {include file="Common:menu"}
+</header>
+<content  class="row">
+
+    <div class="row data-show">
+        <div class="row show-content">
+            <ol class="row breadcrumb">
+                <li>首頁</li>
+                <li>技术分享</li>
+                <li>资料分享</li>
+            </ol>
+
+                <div class="row" >
+                    <div class="input-group col-xs-2">
+                        <input type="text" class="form-control" placeholder="搜索">
+                        <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <ul style="float: right;">
+                        <li class="active" style="display: inline;"><span class="glyphicon  glyphicon-cloud-upload" style="color:#4cb0f9;"></span><a href="{:URL('Share/uploadFile')}" target="_blank">上传资料</a></li>&nbsp;
+                        <li class="active" style="display: inline;"><span class="glyphicon  glyphicon-edit" style="color: #50D4FD;"></span><a href="{:URL('GetUrl/addArticleShare')}" target="_blank">写文档</a></li>
+                    </ul>
+                    <ul class="nav nav-tabs">
+                        <li ><a href="{:URL('Share/selectServerFile')}">服务器</a></li>
+                        <li class="active"><a href="{:URL('Share/selectNetworkFile')}" >网络</a></li>
+                        <li><a href="{:URL('Share/selectOtherFile')}" >其他</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="con1" class="tab-pane "></div>
+                        <div id="con2" class="tab-pane active">
+                            {volist name='list' id='vo'}
+                            <div class="row" style="border-bottom: 1px solid #d7d4f0  ;border-bottom-style: dashed; margin:10px 0px; ">
+                                <div class="col-xs-1">
+                                    {switch $vo.postfix}
+                                    {case value='txt'}
+                                    <img src="{$Think.config.app_public_file}/images/txt.png" style="width: 60px;height: 60px;">
+                                    {/case}
+                                    {case value='docx|doc'}
+                                    <img src="{$Think.config.app_public_file}/images/doc.png" style="width: 60px;height: 60px;">
+                                    {/case}
+                                    {case value='ppt|pptx'}
+                                    <img src="{$Think.config.app_public_file}/images/ppt.png" style="width: 60px;height: 60px;">
+                                    {/case}
+                                    {case value='xls|xlsx'}
+                                    <img src="{$Think.config.app_public_file}/images/xls.png" style="width: 60px;height: 60px;">
+                                    {/case}
+                                    {case value='zip'}
+                                    <img src="{$Think.config.app_public_file}/images/zip.png" style="width: 60px;height: 60px;">
+                                    {/case}
+                                    {case value='7z'}
+                                    <img src="{$Think.config.app_public_file}/images/7z.png" style="width: 60px;height: 60px;">
+                                    {/case}
+                                    {case value='rar'}
+                                    <img src="{$Think.config.app_public_file}/images/rar.png" style="width: 60px;height: 60px;">
+                                    {/case}
+                                    {/switch}
+
+                                </div>
+                                <div class="col-xs-11">
+                                    <div class="row" style="margin-top: 10px">
+                                        <div class="col-xs-9"><h4><a href="">{$vo.filetitle}</a></h4></div>
+                                        <div class="col-xs-3" style="text-align: right">
+                                            <span class="label label-default">{$vo.classify}</span>
+                                            <span class="label label-primary">{$vo.postfix}</span>
+                                            {switch $vo.postfix}
+                                            {case value='zip'}<span class="label label-danger">压缩</span>{/case}
+                                            {default /}<span class="label label-success">文档</span>
+                                            {/switch}
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px">
+                                        <p class="col-xs-12" style="font-size: 12px;color: #9d9d9d">上传者：{$vo.operater} &nbsp;&nbsp;上传时间：{$vo.uploadtime}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {/volist}
+                            <div class="row" style="text-align: center">
+                                {$list->render()}
+                            </div>
+                            <div class="row" style="text-align: center">共有{$count}条</div>
+                        </div>
+                        <div id="con3" class="tab-pane "></div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</content>
+<footer >
+    {include file="Common:footer"/}
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+
